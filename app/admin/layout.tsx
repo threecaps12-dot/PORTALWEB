@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             alt="Three Caps"
             width={32}
             height={32}
-            className="rounded-full"
+            className="rounded-full object-cover"
           />
           <p className="font-display text-cream text-sm tracking-wide">ADMIN</p>
         </div>

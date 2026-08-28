@@ -8,34 +8,98 @@ import ProductGrid from "@/components/ProductGrid";
 import { ProductCardData } from "@/components/ProductCard";
 
 // Placeholder — reemplazar por fetch a Supabase con los filtros aplicados
-// (products join product_variants, filtrando por status='active').
+// (products join product_variants, filtrando por status='active'). Fotos y
+// nombres de referencia son temporales mientras se define el catálogo final.
 const ALL_PRODUCTS: ProductCardData[] = [
   {
     id: "1",
-    slug: "gorra-three-caps",
-    name: "Gorra Three Caps Bordada",
-    price: 42,
-    compareAtPrice: 55,
+    slug: "gorra-concrete-jungle",
+    name: "Gorra Concrete Jungle",
+    price: 45,
+    compareAtPrice: 60,
     categoryLabel: "EDICIÓN LIMITADA",
-    imageUrl: "/products/gorra-three-caps.jpg",
+    imageUrl: "/products/gorra-concrete-jungle.jpg",
     sizes: ["Única"],
+    hasRealPhoto: true,
   },
   {
     id: "2",
-    slug: "gorra-urban-classic",
-    name: "Gorra Urban Classic",
-    price: 35,
+    slug: "gorra-costa-azul-la",
+    name: "Gorra Costa Azul LA",
+    price: 38,
     categoryLabel: "URBAN",
-    imageUrl: "/products/gorra-urban-classic.jpg",
+    imageUrl: "/products/gorra-costa-azul-la.jpg",
     sizes: ["Única"],
+    hasRealPhoto: true,
   },
   {
     id: "3",
+    slug: "gorra-cruz-gotica",
+    name: "Gorra Cruz Gótica",
+    price: 42,
+    categoryLabel: "STREETWEAR",
+    imageUrl: "/products/gorra-cruz-gotica.jpg",
+    sizes: ["Única"],
+    hasRealPhoto: true,
+  },
+  {
+    id: "4",
+    slug: "gorra-barroco-negro",
+    name: "Gorra Barroco Negro",
+    price: 48,
+    compareAtPrice: 62,
+    categoryLabel: "EDICIÓN LIMITADA",
+    imageUrl: "/products/gorra-barroco-negro.jpg",
+    sizes: ["Única"],
+    hasRealPhoto: true,
+  },
+  {
+    id: "5",
+    slug: "gorra-samurai-urbano",
+    name: "Gorra Samurái Urbano",
+    price: 40,
+    categoryLabel: "URBAN",
+    imageUrl: "/products/gorra-samurai-urbano.jpg",
+    sizes: ["Única"],
+    hasRealPhoto: true,
+  },
+  {
+    id: "6",
+    slug: "gorra-diamante-la",
+    name: "Gorra Diamante LA",
+    price: 52,
+    compareAtPrice: 68,
+    categoryLabel: "EDICIÓN LIMITADA",
+    imageUrl: "/products/gorra-diamante-la.jpg",
+    sizes: ["Única"],
+    hasRealPhoto: true,
+  },
+  {
+    id: "7",
+    slug: "gorra-llamas-rosa-ny",
+    name: "Gorra Llamas Rosa NY",
+    price: 44,
+    categoryLabel: "STREETWEAR",
+    imageUrl: "/products/gorra-llamas-rosa-ny.jpg",
+    sizes: ["Única"],
+    hasRealPhoto: true,
+  },
+  {
+    id: "8",
     slug: "hoodie-three-caps",
     name: "Hoodie Three Caps",
     price: 68,
     categoryLabel: "STREETWEAR",
     imageUrl: "/products/hoodie-three-caps.jpg",
+    sizes: ["S", "M", "L", "XL"],
+  },
+  {
+    id: "9",
+    slug: "camiseta-firma",
+    name: "Camiseta Firma Bordada",
+    price: 28,
+    categoryLabel: "URBAN",
+    imageUrl: "/products/camiseta-firma.jpg",
     sizes: ["S", "M", "L", "XL"],
   },
 ];
@@ -63,13 +127,17 @@ export default function CatalogoPage() {
         {/* Sidebar de filtros */}
         <aside className="space-y-8">
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 mb-3">COLECCIÓN</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">COLECCIÓN</h3>
             <ul className="space-y-2 text-sm">
               {COLLECTION_OPTIONS.map((c) => (
                 <li key={c}>
                   <button
                     onClick={() => setSelectedCollection(c)}
-                    className={selectedCollection === c ? "text-crimson font-medium" : "text-obsidian/70"}
+                    className={
+                      selectedCollection === c
+                        ? "text-crimson font-medium"
+                        : "text-obsidian/70 dark:text-cream/70"
+                    }
                   >
                     {c}
                   </button>
@@ -79,16 +147,16 @@ export default function CatalogoPage() {
           </div>
 
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 mb-3">TALLA</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">TALLA</h3>
             <div className="flex flex-wrap gap-1.5">
               {SIZE_OPTIONS.map((size) => (
                 <button
                   key={size}
                   onClick={() => toggleSize(size)}
-                  className={`text-xs px-2.5 py-1 border ${
+                  className={`text-xs px-2.5 py-1 border transition-colors ${
                     selectedSizes.includes(size)
                       ? "border-crimson bg-crimson text-cream"
-                      : "border-obsidian/20 text-obsidian/70"
+                      : "border-obsidian/20 dark:border-cream/20 text-obsidian/70 dark:text-cream/70"
                   }`}
                 >
                   {size}
@@ -98,7 +166,7 @@ export default function CatalogoPage() {
           </div>
 
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 mb-3">
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">
               PRECIO MÁXIMO — ${maxPrice}
             </h3>
             <input

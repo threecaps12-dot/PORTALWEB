@@ -39,13 +39,13 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
   const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
 
   return (
-    <div className="border border-obsidian/10 p-6 md:p-8 bg-white">
+    <div className="border border-obsidian/10 dark:border-cream/10 p-6 md:p-8 bg-white dark:bg-obsidian-soft">
       <div className="flex items-baseline justify-between mb-6">
-        <span className="text-obsidian/60 text-sm">Pedido #{orderNumber}</span>
-        <span className="font-display text-2xl text-obsidian">${total.toFixed(2)}</span>
+        <span className="text-obsidian/60 dark:text-cream/60 text-sm">Pedido #{orderNumber}</span>
+        <span className="font-display text-2xl text-obsidian dark:text-cream">${total.toFixed(2)}</span>
       </div>
 
-      <p className="text-sm text-obsidian/70 mb-5">
+      <p className="text-sm text-obsidian/70 dark:text-cream/70 mb-5">
         Confirma tu pedido y ciérralo directo con nosotros. Te respondemos al instante.
       </p>
 
@@ -64,13 +64,13 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
           href={buildInstagramLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 border border-obsidian text-obsidian text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream transition-colors"
+          className="flex items-center justify-center gap-2 border border-obsidian dark:border-cream text-obsidian dark:text-cream text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream dark:hover:bg-cream dark:hover:text-obsidian transition-colors"
         >
           <InstagramIcon />
           FINALIZAR POR INSTAGRAM
         </a>
 
-        <div className="flex items-center gap-2 justify-center text-obsidian/50 text-xs pt-2">
+        <div className="flex items-center gap-2 justify-center text-obsidian/50 dark:text-cream/50 text-xs pt-2">
           <PayPalIcon />
           También aceptamos PayPal — indícalo al confirmar tu pedido.
         </div>

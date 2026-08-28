@@ -53,7 +53,7 @@ export default function ProductCard({
 
   return (
     <div className="group flex flex-col">
-      <div className="relative aspect-[4/5] bg-[#F2EEE6] overflow-hidden flex items-center justify-center">
+      <div className="relative aspect-[4/5] bg-[#F2EEE6] dark:bg-obsidian-soft overflow-hidden flex items-center justify-center">
         {product.categoryLabel && (
           <span className="absolute top-3 left-3 z-10 bg-obsidian text-cream text-[10px] tracking-widest px-2 py-1">
             {product.categoryLabel}
@@ -76,12 +76,12 @@ export default function ProductCard({
         )}
       </div>
 
-      <h3 className="font-body text-sm text-obsidian mt-3">{product.name}</h3>
+      <h3 className="font-body text-sm text-obsidian dark:text-cream mt-3">{product.name}</h3>
 
       <div className="flex items-baseline gap-2 mt-1">
-        <span className="text-obsidian font-semibold">${product.price.toFixed(2)}</span>
+        <span className="text-obsidian dark:text-cream font-semibold">${product.price.toFixed(2)}</span>
         {product.compareAtPrice && (
-          <span className="text-obsidian/40 line-through text-sm">
+          <span className="text-obsidian/40 dark:text-cream/40 line-through text-sm">
             ${product.compareAtPrice.toFixed(2)}
           </span>
         )}
@@ -95,7 +95,7 @@ export default function ProductCard({
             className={`text-xs px-2.5 py-1 border transition-colors ${
               selectedSize === size
                 ? "border-crimson bg-crimson text-cream"
-                : "border-obsidian/20 text-obsidian/70 hover:border-obsidian"
+                : "border-obsidian/20 dark:border-cream/20 text-obsidian/70 dark:text-cream/70 hover:border-obsidian dark:hover:border-cream"
             }`}
           >
             {size}

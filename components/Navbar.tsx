@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const CATEGORIES = [
   { label: "GORRAS", href: "/catalogo?cat=gorras" },
@@ -29,7 +30,7 @@ function CartIcon() {
 
 export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
   return (
-    <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-obsidian/10">
+    <header className="sticky top-0 z-40 bg-cream/95 dark:bg-obsidian/95 backdrop-blur border-b border-obsidian/10 dark:border-cream/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
@@ -37,9 +38,9 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
             alt="Three Caps"
             width={40}
             height={40}
-            className="rounded-full"
+            className="rounded-full object-cover"
           />
-          <span className="font-display text-base tracking-wide text-obsidian hidden sm:inline">
+          <span className="font-display text-base tracking-wide text-obsidian dark:text-cream hidden sm:inline">
             THREE <span className="text-crimson">CAPS</span>
           </span>
         </Link>
@@ -49,14 +50,15 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
             <Link
               key={cat.href}
               href={cat.href}
-              className="text-obsidian/80 hover:text-crimson transition-colors"
+              className="text-obsidian/80 dark:text-cream/80 hover:text-crimson transition-colors"
             >
               {cat.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-5 text-obsidian">
+        <div className="flex items-center gap-4 text-obsidian dark:text-cream">
+          <ThemeToggle />
           <button aria-label="Buscar" className="hover:text-crimson transition-colors">
             <SearchIcon />
           </button>

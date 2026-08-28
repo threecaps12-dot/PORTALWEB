@@ -20,18 +20,18 @@ export default function CarritoPage() {
       <Navbar cartCount={CART_ITEMS.length} />
 
       <div className="max-w-3xl mx-auto px-4 md:px-8 py-12">
-        <h1 className="font-display text-3xl text-obsidian mb-8">TU CARRITO</h1>
+        <h1 className="font-display text-3xl text-obsidian dark:text-cream mb-8">TU CARRITO</h1>
 
-        <div className="divide-y divide-obsidian/10 mb-8">
+        <div className="divide-y divide-obsidian/10 dark:divide-cream/10 mb-8">
           {CART_ITEMS.map((item, i) => (
             <div key={i} className="flex items-center justify-between py-4 text-sm">
               <div>
-                <p className="text-obsidian">{item.productName}</p>
-                <p className="text-obsidian/50">
+                <p className="text-obsidian dark:text-cream">{item.productName}</p>
+                <p className="text-obsidian/50 dark:text-cream/50">
                   Talla {item.size} × {item.quantity}
                 </p>
               </div>
-              <span className="text-obsidian font-medium">
+              <span className="text-obsidian dark:text-cream font-medium">
                 ${(item.unitPrice * item.quantity).toFixed(2)}
               </span>
             </div>

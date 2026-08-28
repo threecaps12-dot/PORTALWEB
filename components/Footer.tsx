@@ -11,7 +11,7 @@ export default function Footer() {
               alt="Three Caps"
               width={36}
               height={36}
-              className="rounded-full"
+              className="rounded-full object-cover"
             />
             <span className="font-display text-cream text-sm tracking-wide">THREE CAPS</span>
           </div>
