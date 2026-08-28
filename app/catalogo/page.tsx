@@ -111,6 +111,7 @@ export default function CatalogoPage() {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedCollection, setSelectedCollection] = useState("Todas");
   const [maxPrice, setMaxPrice] = useState(100);
+  const [cartCount, setCartCount] = useState(0);
 
   function toggleSize(size: string) {
     setSelectedSizes((prev) =>
@@ -118,10 +119,14 @@ export default function CatalogoPage() {
     );
   }
 
+  function handleAddToCart(productId: string, size: string) {
+    setCartCount((c) => c + 1);
+  }
+
   return (
     <>
       <AnnouncementBar />
-      <Navbar />
+      <Navbar cartCount={cartCount} />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
         {/* Sidebar de filtros */}
@@ -184,7 +189,7 @@ export default function CatalogoPage() {
         <ProductGrid
           title="CATÁLOGO COMPLETO"
           products={ALL_PRODUCTS.filter((p) => p.price <= maxPrice)}
-          onAddToCart={() => {}}
+          onAddToCart={handleAddToCart}
         />
       </div>
 

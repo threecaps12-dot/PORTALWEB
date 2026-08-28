@@ -34,7 +34,7 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
-            src="/brand/three-caps-logo.jpg"
+            src="/brand/three-caps-logo.png"
             alt="Three Caps"
             width={40}
             height={40}

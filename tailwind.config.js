@@ -24,13 +24,14 @@ module.exports = {
         body: ["var(--font-body)", "sans-serif"],
       },
       keyframes: {
-        "logo-in": {
-          "0%": { opacity: "0", transform: "scale(0.85)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
+        "draw": {
+          "0%": { "stroke-dashoffset": "1" },
+          "100%": { "stroke-dashoffset": "0" },
         },
-        "curtain-out": {
-          "0%": { opacity: "1" },
-          "100%": { opacity: "0", visibility: "hidden" },
+        "badge-pop": {
+          "0%": { opacity: "0", transform: "scale(0.82)" },
+          "65%": { opacity: "1", transform: "scale(1.06)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
         "shine-sweep": {
           "0%": { transform: "translateX(-120%) skewX(-12deg)" },
@@ -46,9 +47,9 @@ module.exports = {
         },
       },
       animation: {
-        "logo-in": "logo-in 0.8s cubic-bezier(0.16,1,0.3,1) forwards",
-        "curtain-out": "curtain-out 0.6s ease-in forwards",
-        "shine-sweep": "shine-sweep 1.4s ease-in-out 0.7s forwards",
+        "draw": "draw 0.85s cubic-bezier(0.65,0,0.35,1) forwards",
+        "badge-pop": "badge-pop 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards",
+        "shine-sweep": "shine-sweep 1.2s ease-in-out 0.35s forwards",
         "kenburns": "kenburns 14s ease-out forwards",
         "fade-up": "fade-up 0.7s ease-out forwards",
       },

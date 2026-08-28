@@ -49,7 +49,17 @@ export default function ProductCard({
   product: ProductCardData;
   onAddToCart: (productId: string, size: string) => void;
 }) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(
+    product.sizes.length === 1 ? product.sizes[0] : null
+  );
+  const [justAdded, setJustAdded] = useState(false);
+
+  function handleAdd() {
+    if (!selectedSize) return;
+    onAddToCart(product.id, selectedSize);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1400);
+  }
 
   return (
     <div className="group flex flex-col">
@@ -105,10 +115,12 @@ export default function ProductCard({
 
       <button
         disabled={!selectedSize}
-        onClick={() => selectedSize && onAddToCart(product.id, selectedSize)}
-        className="mt-3 bg-obsidian text-cream text-xs tracking-wide py-2.5 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-crimson transition-colors"
+        onClick={handleAdd}
+        className={`mt-3 text-cream text-xs tracking-wide py-2.5 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95 ${
+          justAdded ? "bg-green-700" : "bg-obsidian hover:bg-crimson"
+        }`}
       >
-        AÑADIR AL CARRITO
+        {justAdded ? "AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}
       </button>
     </div>
   );

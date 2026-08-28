@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <Image
-              src="/brand/three-caps-logo.jpg"
+              src="/brand/three-caps-logo.png"
               alt="Three Caps"
               width={36}
               height={36}

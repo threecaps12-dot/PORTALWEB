@@ -16,7 +16,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-56 bg-obsidian text-cream/80 min-h-screen p-6">
         <div className="flex items-center gap-2.5 mb-8">
           <Image
-            src="/brand/three-caps-logo.jpg"
+            src="/brand/three-caps-logo.png"
             alt="Three Caps"
             width={32}
             height={32}
