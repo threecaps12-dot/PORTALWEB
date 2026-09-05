@@ -58,9 +58,20 @@ export default function InventarioTable({ initialVariants }: { initialVariants: 
               <td className="p-4">{v.size}</td>
               <td className="p-4 font-mono text-xs">{v.sku}</td>
               <td className="p-4">
-                <span className={v.stock === 0 ? "text-crimson font-medium" : ""}>
+                <span
+                  className={
+                    v.stock === 0
+                      ? "text-crimson font-medium"
+                      : v.stock <= 5
+                        ? "text-amber-600 font-medium"
+                        : ""
+                  }
+                >
                   {v.stock === 0 ? "Agotado" : v.stock}
                 </span>
+                {v.stock > 0 && v.stock <= 5 && (
+                  <span className="ml-2 text-[10px] text-amber-600 tracking-wide">STOCK BAJO</span>
+                )}
               </td>
               <td className="p-4 flex gap-2">
                 <button

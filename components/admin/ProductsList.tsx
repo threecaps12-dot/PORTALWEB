@@ -21,6 +21,11 @@ export default function ProductsList({ initialProducts }: { initialProducts: Pro
   const [products, setProducts] = useState(initialProducts);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+
+  const visibleProducts = products.filter((p) =>
+    p.name.toLowerCase().includes(search.trim().toLowerCase())
+  );
 
   async function toggleFeatured(id: string, value: boolean) {
     setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, is_featured: value } : p)));
@@ -47,6 +52,14 @@ export default function ProductsList({ initialProducts }: { initialProducts: Pro
 
   return (
     <div className="bg-white border border-obsidian/10">
+      <div className="p-4 border-b border-obsidian/10">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar producto por nombre..."
+          className="w-full max-w-xs border border-obsidian/15 text-obsidian bg-white px-3 py-2 text-sm focus:outline-none focus:border-crimson"
+        />
+      </div>
       <table className="w-full text-sm">
         <thead>
           <tr className="text-left text-obsidian/50 border-b border-obsidian/10">
@@ -59,14 +72,16 @@ export default function ProductsList({ initialProducts }: { initialProducts: Pro
           </tr>
         </thead>
         <tbody>
-          {products.length === 0 && (
+          {visibleProducts.length === 0 && (
             <tr>
               <td colSpan={6} className="p-6 text-center text-obsidian/50">
-                Todavía no hay productos. Crea el primero.
+                {products.length === 0
+                  ? "Todavía no hay productos. Crea el primero."
+                  : "Ningún producto coincide con la búsqueda."}
               </td>
             </tr>
           )}
-          {products.map((p) => (
+          {visibleProducts.map((p) => (
             <tr key={p.id} className="border-b border-obsidian/5">
               <td className="p-4 flex items-center gap-3">
                 {p.product_images[0]?.url && (

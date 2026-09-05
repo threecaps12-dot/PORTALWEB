@@ -249,7 +249,7 @@ export default function ProductForm({
             value={name}
             onChange={(e) => handleNameChange(e.target.value)}
             required
-            className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 
@@ -262,7 +262,7 @@ export default function ProductForm({
               setSlugTouched(true);
             }}
             required
-            className="border border-obsidian/15 px-3 py-2.5 text-sm font-mono focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm font-mono text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 
@@ -275,7 +275,7 @@ export default function ProductForm({
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
-            className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 
@@ -287,23 +287,29 @@ export default function ProductForm({
             min="0"
             value={compareAtPrice}
             onChange={(e) => setCompareAtPrice(e.target.value)}
-            className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-obsidian/50 text-xs tracking-wide">COLECCIÓN</label>
-          <select
-            value={collectionId}
-            onChange={(e) => setCollectionId(e.target.value)}
-            className="border border-obsidian/15 px-3 py-2.5 text-sm bg-white focus:outline-none focus:border-crimson"
-          >
-            {collections.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+          <label className="text-obsidian/50 text-xs tracking-wide">CATEGORÍA</label>
+          {collections.length === 0 ? (
+            <p className="text-crimson text-xs border border-crimson/30 px-3 py-2.5">
+              Todavía no hay categorías — crea una arriba en "Productos" antes de continuar.
+            </p>
+          ) : (
+            <select
+              value={collectionId}
+              onChange={(e) => setCollectionId(e.target.value)}
+              className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
+            >
+              {collections.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
@@ -312,7 +318,7 @@ export default function ProductForm({
             value={categoryLabel}
             onChange={(e) => setCategoryLabel(e.target.value.toUpperCase())}
             placeholder="EDICIÓN LIMITADA, URBAN..."
-            className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 
@@ -322,7 +328,7 @@ export default function ProductForm({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
           />
         </div>
 

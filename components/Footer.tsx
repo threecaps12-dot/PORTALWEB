@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { INSTAGRAM_HANDLE, WHATSAPP_NUMBER } from "@/lib/whatsapp";
 
 export default function Footer() {
   return (
@@ -36,8 +37,26 @@ export default function Footer() {
         <div>
           <h4 className="text-cream mb-3 tracking-wide">SÍGUENOS</h4>
           <ul className="space-y-2">
-            <li>Instagram</li>
-            <li>WhatsApp</li>
+            <li>
+              <a
+                href={`https://instagram.com/${INSTAGRAM_HANDLE}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-crimson transition-colors"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-crimson transition-colors"
+              >
+                WhatsApp
+              </a>
+            </li>
           </ul>
         </div>
       </div>

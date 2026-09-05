@@ -14,6 +14,7 @@ export type ProductCardData = {
   imageUrl: string;
   sizes: string[];
   hasRealPhoto?: boolean; // false = mostrar ícono de referencia en vez de foto
+  stockLeft?: number;
 };
 
 /** Ícono de línea simple por tipo de producto, usado mientras no hay foto real. */
@@ -87,7 +88,9 @@ export default function ProductCard({
         )}
       </div>
 
-      <h3 className="font-body text-sm text-obsidian dark:text-cream mt-3">{product.name}</h3>
+      <h3 className="font-display tracking-wide text-base text-obsidian dark:text-cream mt-3">
+        {product.name}
+      </h3>
 
       <div className="flex items-baseline gap-2 mt-1">
         <span className="text-obsidian dark:text-cream font-semibold">${product.price.toFixed(2)}</span>
@@ -97,6 +100,10 @@ export default function ProductCard({
           </span>
         )}
       </div>
+
+      {typeof product.stockLeft === "number" && product.stockLeft > 0 && product.stockLeft <= 5 && (
+        <p className="text-crimson text-xs mt-1">Quedan {product.stockLeft} — se agota rápido</p>
+      )}
 
       <div className="flex flex-wrap gap-1.5 mt-2">
         {product.sizes.map((size) => (
@@ -117,7 +124,7 @@ export default function ProductCard({
       <button
         disabled={!selectedSize}
         onClick={handleAdd}
-        className={`mt-3 text-cream text-xs tracking-wide py-2.5 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95 ${
+        className={`mt-3 text-cream font-display text-base tracking-wide py-2.5 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95 ${
           justAdded ? "bg-green-700" : "bg-obsidian hover:bg-crimson"
         }`}
       >

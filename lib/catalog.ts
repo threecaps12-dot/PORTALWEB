@@ -35,6 +35,7 @@ function toCardData(row: ProductRow): ProductCardData {
     imageUrl: images[0]?.url ?? "/products/gorra-concrete-jungle.jpg",
     sizes: Array.from(new Set(row.product_variants.map((v) => v.size))),
     hasRealPhoto: row.has_real_photo,
+    stockLeft: row.product_variants.reduce((sum, v) => sum + v.stock, 0),
   };
 }
 

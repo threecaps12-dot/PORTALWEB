@@ -55,16 +55,17 @@ module.exports = {
           "88%": { opacity: "1" },
           "100%": { left: "104%", opacity: "0" },
         },
-        "ember-rise": {
-          "0%": { transform: "translateY(0) scale(0.5)", opacity: "0" },
-          "18%": { opacity: "1" },
-          "65%": { opacity: "0.85" },
-          "100%": { transform: "translateY(-70px) scale(0.15)", opacity: "0" },
+        "ember-float": {
+          "0%": { transform: "translateY(0) scale(0.4)", opacity: "0" },
+          "12%": { opacity: "1", transform: "translateY(-8vh) scale(1)" },
+          "75%": { opacity: "0.9" },
+          "100%": { transform: "translateY(-95vh) scale(0.3)", opacity: "0" },
         },
-        "ignite-flash": {
-          "0%": { opacity: "0" },
-          "12%": { opacity: "0.9" },
-          "100%": { opacity: "0" },
+        "flame-flicker": {
+          "0%, 100%": { opacity: "0.55", transform: "scale(1)" },
+          "25%": { opacity: "0.8", transform: "scale(1.05)" },
+          "50%": { opacity: "0.6", transform: "scale(0.97)" },
+          "75%": { opacity: "0.85", transform: "scale(1.06)" },
         },
       },
       animation: {
@@ -75,8 +76,8 @@ module.exports = {
         "fade-up": "fade-up 0.7s ease-out forwards",
         "spray-reveal": "spray-reveal 950ms cubic-bezier(0.45,0,0.4,1) forwards",
         "spray-glow-move": "spray-glow-move 950ms cubic-bezier(0.45,0,0.4,1) forwards",
-        "ember-rise": "ember-rise 1100ms ease-out forwards",
-        "ignite-flash": "ignite-flash 550ms ease-out forwards",
+        "ember-float": "ember-float 2400ms ease-in forwards",
+        "flame-flicker": "flame-flicker 1.4s ease-in-out infinite",
       },
     },
   },

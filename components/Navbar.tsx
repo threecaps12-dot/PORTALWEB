@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
+import SearchBar from "@/components/SearchBar";
 
 const CATEGORIES = [
   { label: "GORRAS", href: "/catalogo?cat=gorras" },
@@ -8,15 +9,6 @@ const CATEGORIES = [
   { label: "COLECCIONES", href: "/catalogo?cat=colecciones" },
   { label: "DESTACADOS", href: "/catalogo?cat=destacados" },
 ];
-
-function SearchIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="11" cy="11" r="7" />
-      <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function CartIcon() {
   return (
@@ -43,7 +35,7 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 font-body text-sm tracking-wide">
+        <nav className="hidden md:flex items-center gap-8 font-display text-lg tracking-wide">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.href}
@@ -57,9 +49,7 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
 
         <div className="flex items-center gap-4 text-obsidian dark:text-cream">
           <ThemeToggle />
-          <button aria-label="Buscar" className="hover:text-crimson transition-colors">
-            <SearchIcon />
-          </button>
+          <SearchBar />
           <Link href="/carrito" aria-label="Carrito" className="relative hover:text-crimson transition-colors">
             <CartIcon />
             {cartCount > 0 && (

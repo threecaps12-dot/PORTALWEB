@@ -30,7 +30,7 @@ export default function Hero() {
         </h1>
         <Link
           href="/catalogo?cat=destacados"
-          className="inline-block bg-crimson hover:bg-crimson-hover text-cream text-sm tracking-wide px-8 py-3 w-fit transition-all hover:scale-[1.03] active:scale-95 animate-fade-up"
+          className="inline-block bg-crimson hover:bg-crimson-hover text-cream font-display text-lg tracking-wide px-8 py-3 w-fit transition-all hover:scale-[1.03] active:scale-95 animate-fade-up"
           style={{ animationDelay: "420ms", opacity: 0 }}
         >
           COMPRAR AHORA
