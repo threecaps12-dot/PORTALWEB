@@ -46,6 +46,19 @@ export default function GraffitiIntro() {
     { top: "82%", size: 74, blur: "blur-lg", delay: "40ms", color: "rgba(212,175,55,0.35)" },
   ];
 
+  const EMBERS = [
+    { left: "4%", size: 5, delay: "0ms", color: "#FFB84D" },
+    { left: "12%", size: 3, delay: "90ms", color: "#D4AF37" },
+    { left: "21%", size: 6, delay: "40ms", color: "#8C0B1E" },
+    { left: "30%", size: 4, delay: "160ms", color: "#FFB84D" },
+    { left: "40%", size: 3, delay: "20ms", color: "#FAF8F5" },
+    { left: "51%", size: 5, delay: "110ms", color: "#D4AF37" },
+    { left: "61%", size: 4, delay: "70ms", color: "#8C0B1E" },
+    { left: "71%", size: 6, delay: "140ms", color: "#FFB84D" },
+    { left: "82%", size: 3, delay: "30ms", color: "#D4AF37" },
+    { left: "92%", size: 5, delay: "100ms", color: "#FAF8F5" },
+  ];
+
   return (
     <div className="fixed inset-0 z-[100]">
       <div
@@ -67,6 +80,10 @@ export default function GraffitiIntro() {
         }`}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.14),transparent_60%)]" />
+        {/* Destello cálido: el logo "prende" un instante antes de que el spray empiece a escribirlo */}
+        {spraying && (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,140,40,0.35),transparent_55%)] animate-ignite-flash" />
+        )}
         {/* Textura fina de pared, apenas visible, para que el spray tenga "superficie" */}
         <div
           className="absolute inset-0 opacity-[0.05]"
@@ -108,6 +125,23 @@ export default function GraffitiIntro() {
           {spraying && (
             <span className="absolute inset-y-0 w-8 -ml-4 blur-md bg-gradient-to-r from-transparent via-cream to-transparent animate-spray-glow-move" />
           )}
+
+          {/* Chispas: el logo arde un instante mientras se escribe */}
+          {spraying &&
+            EMBERS.map((e, i) => (
+              <span
+                key={i}
+                className="absolute bottom-0 rounded-full blur-[1px] animate-ember-rise"
+                style={{
+                  left: e.left,
+                  width: e.size,
+                  height: e.size,
+                  background: e.color,
+                  boxShadow: `0 0 6px 1px ${e.color}`,
+                  animationDelay: e.delay,
+                }}
+              />
+            ))}
         </div>
 
         <span className="absolute bottom-10 text-cream/40 text-[11px] tracking-[0.25em]">

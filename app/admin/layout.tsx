@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/admin/LogoutButton";
+import BackButton from "@/components/admin/BackButton";
 
 const NAV = [
   { label: "Resumen", href: "/admin" },
@@ -24,15 +25,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-cream flex">
       <aside className="w-56 bg-obsidian text-cream/80 min-h-screen p-6 flex flex-col">
-        <div className="flex items-center gap-2.5 mb-8">
+        <div className="flex items-center mb-8">
           <Image
-            src="/brand/three-caps-logo.png"
+            src="/brand/three-caps-wordmark.png"
             alt="Three Caps"
-            width={32}
-            height={32}
-            className="rounded-full object-cover"
+            width={1942}
+            height={809}
+            className="h-8 w-auto object-contain"
           />
-          <p className="font-display text-cream text-sm tracking-wide">ADMIN</p>
         </div>
         <nav className="space-y-3 text-sm">
           {NAV.map((item) => (
@@ -47,7 +47,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <LogoutButton />
         </div>
       </aside>
-      <main className="flex-1 p-8">{children}</main>
+      <main className="flex-1 p-8">
+        <BackButton />
+        {children}
+      </main>
     </div>
   );
 }

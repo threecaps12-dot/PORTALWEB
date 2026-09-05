@@ -51,16 +51,14 @@ export default function AdminLoginPage() {
       <div className="relative w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
           <Image
-            src="/brand/three-caps-logo.png"
+            src="/brand/three-caps-wordmark.png"
             alt="Three Caps"
-            width={64}
-            height={64}
-            className="rounded-full object-cover mb-4"
+            width={1942}
+            height={809}
+            className="h-16 w-auto object-contain mb-4"
+            priority
           />
-          <span className="text-gold text-xs tracking-[0.25em] mb-1">ACCESO RESTRINGIDO</span>
-          <h1 className="font-display text-cream text-2xl tracking-wide">
-            THREE <span className="text-crimson">CAPS</span> ADMIN
-          </h1>
+          <span className="text-gold text-xs tracking-[0.25em]">ACCESO RESTRINGIDO — ADMIN</span>
         </div>
 
         <form

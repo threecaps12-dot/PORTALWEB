@@ -56,12 +56,45 @@ export default function ProductForm({
   const [isFeatured, setIsFeatured] = useState(initial?.isFeatured ?? false);
   const [hasRealPhoto, setHasRealPhoto] = useState(initial?.hasRealPhoto ?? false);
   const [status, setStatus] = useState(initial?.status ?? "active");
-  const [images, setImages] = useState(initial?.images.join("\n") ?? "");
+  const [images, setImages] = useState<string[]>(initial?.images ?? []);
+  const [uploading, setUploading] = useState(false);
   const [variants, setVariants] = useState<VariantInput[]>(
     initial?.variants ?? [{ size: "Única", sku: "", stock: 0 }]
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  async function handleFilesSelected(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    setError(null);
+
+    const uploadedUrls: string[] = [];
+    for (const file of Array.from(files)) {
+      const ext = file.name.split(".").pop() || "jpg";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("product-images")
+        .upload(path, file, { contentType: file.type });
+
+      if (uploadError) {
+        setError(`No se pudo subir ${file.name}: ${uploadError.message}`);
+        continue;
+      }
+      const { data } = supabase.storage.from("product-images").getPublicUrl(path);
+      uploadedUrls.push(data.publicUrl);
+    }
+
+    if (uploadedUrls.length > 0) {
+      setImages((prev) => [...prev, ...uploadedUrls]);
+      setHasRealPhoto(true);
+    }
+    setUploading(false);
+  }
+
+  function removeImage(index: number) {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  }
 
   function handleNameChange(value: string) {
     setName(value);
@@ -95,10 +128,7 @@ export default function ProductForm({
 
     setLoading(true);
 
-    const imageUrls = images
-      .split("\n")
-      .map((u) => u.trim())
-      .filter(Boolean);
+    const imageUrls = images;
 
     const productPayload = {
       name,
@@ -298,15 +328,42 @@ export default function ProductForm({
 
         <div className="flex flex-col gap-1.5 col-span-2">
           <label className="text-obsidian/50 text-xs tracking-wide">
-            IMÁGENES (una URL por línea, la primera es la principal)
+            FOTOS (la primera es la principal)
           </label>
-          <textarea
-            value={images}
-            onChange={(e) => setImages(e.target.value)}
-            rows={3}
-            placeholder="/products/mi-gorra.jpg"
-            className="border border-obsidian/15 px-3 py-2.5 text-sm font-mono focus:outline-none focus:border-crimson"
-          />
+
+          {images.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-1">
+              {images.map((url, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <div key={url + i} className="relative w-20 h-20 group">
+                  <img src={url} alt="" className="w-full h-full object-cover bg-obsidian/5" />
+                  {i === 0 && (
+                    <span className="absolute bottom-0 left-0 right-0 bg-obsidian/70 text-cream text-[9px] text-center py-0.5">
+                      PRINCIPAL
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => removeImage(i)}
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-crimson text-cream text-xs rounded-full flex items-center justify-center"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <label className="inline-flex items-center gap-2 border border-dashed border-obsidian/25 px-4 py-3 text-sm text-obsidian/60 cursor-pointer hover:border-crimson hover:text-crimson transition-colors w-fit">
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => handleFilesSelected(e.target.files)}
+              className="hidden"
+            />
+            {uploading ? "Subiendo..." : "+ Subir fotos (desde celular o PC)"}
+          </label>
         </div>
 
         <label className="flex items-center gap-2 text-sm text-obsidian/70">
@@ -393,7 +450,7 @@ export default function ProductForm({
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || uploading}
         className="self-start bg-crimson hover:bg-crimson-hover disabled:opacity-50 text-cream text-xs tracking-[0.15em] px-6 py-3 transition-all hover:scale-[1.02] active:scale-95"
       >
         {loading ? "GUARDANDO..." : mode === "create" ? "CREAR PRODUCTO" : "GUARDAR CAMBIOS"}
