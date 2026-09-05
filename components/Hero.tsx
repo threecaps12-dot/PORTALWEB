@@ -1,17 +1,19 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Hero() {
   return (
     <section className="relative w-full h-[70vh] min-h-[420px] bg-obsidian overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
-        <Image
-          src="/banners/hero-collection.jpg"
-          alt="Colección Three Caps"
-          fill
-          priority
-          className="object-cover opacity-80 animate-kenburns"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/banners/hero-collection.jpg"
+          className="w-full h-full object-cover opacity-80"
+        >
+          <source src="/banners/hero-video.mp4" type="video/mp4" />
+        </video>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-obsidian/70 via-transparent to-transparent" />

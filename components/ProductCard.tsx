@@ -10,6 +10,7 @@ export type ProductCardData = {
   price: number;
   compareAtPrice?: number;
   categoryLabel?: string;
+  collectionSlug?: string;
   imageUrl: string;
   sizes: string[];
   hasRealPhoto?: boolean; // false = mostrar ícono de referencia en vez de foto

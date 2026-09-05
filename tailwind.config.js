@@ -45,6 +45,26 @@ module.exports = {
           "0%": { opacity: "0", transform: "translateY(24px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "spray-reveal": {
+          "0%": { "clip-path": "inset(0 100% 0 0)" },
+          "100%": { "clip-path": "inset(0 0% 0 0)" },
+        },
+        "spray-focus": {
+          "0%": { opacity: "0", filter: "blur(6px)", transform: "scale(1.04)" },
+          "60%": { opacity: "1" },
+          "100%": { opacity: "1", filter: "blur(0px)", transform: "scale(1)" },
+        },
+        "spray-glow-move": {
+          "0%": { left: "-6%", opacity: "0" },
+          "10%": { opacity: "1" },
+          "88%": { opacity: "1" },
+          "100%": { left: "104%", opacity: "0" },
+        },
+        "mist-fade": {
+          "0%": { opacity: "0" },
+          "20%": { opacity: "0.5" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
         "draw": "draw 0.85s cubic-bezier(0.65,0,0.35,1) forwards",
@@ -52,6 +72,10 @@ module.exports = {
         "shine-sweep": "shine-sweep 1.2s ease-in-out 0.35s forwards",
         "kenburns": "kenburns 14s ease-out forwards",
         "fade-up": "fade-up 0.7s ease-out forwards",
+        "spray-reveal": "spray-reveal 950ms cubic-bezier(0.45,0,0.4,1) forwards",
+        "spray-focus": "spray-focus 950ms cubic-bezier(0.45,0,0.4,1) forwards",
+        "spray-glow-move": "spray-glow-move 950ms cubic-bezier(0.45,0,0.4,1) forwards",
+        "mist-fade": "mist-fade 950ms ease-out forwards",
       },
     },
   },

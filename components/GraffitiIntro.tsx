@@ -3,28 +3,29 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-type Phase = "draw" | "reveal" | "closing";
+type Phase = "spraying" | "revealed" | "closing";
 
 /**
- * Cortina de apertura: el escudo se "borda" con un trazo animado
- * (stroke-dashoffset con pathLength=1), se revela a color, y luego dos
- * paneles tipo telón se abren en direcciones opuestas para mostrar el
- * sitio. Una vez por sesión, tocable para saltarla.
+ * Cortina de apertura: el logo aparece "escrito" con un pase de spray
+ * (clip-path barriendo de izquierda a derecha + un borde de luz que
+ * simula la boquilla del spray), se mantiene un instante, y luego dos
+ * paneles tipo telón se abren en direcciones opuestas. Una vez por
+ * sesión, tocable para saltarla.
  */
 export default function GraffitiIntro() {
   const [show, setShow] = useState(false);
-  const [phase, setPhase] = useState<Phase>("draw");
+  const [phase, setPhase] = useState<Phase>("spraying");
 
   useEffect(() => {
     const seen = sessionStorage.getItem("three-caps-intro-seen");
     if (!seen) {
       setShow(true);
       sessionStorage.setItem("three-caps-intro-seen", "1");
-      const toReveal = setTimeout(() => setPhase("reveal"), 1100);
-      const toClosing = setTimeout(() => setPhase("closing"), 2150);
-      const unmount = setTimeout(() => setShow(false), 2850);
+      const toRevealed = setTimeout(() => setPhase("revealed"), 1150);
+      const toClosing = setTimeout(() => setPhase("closing"), 2050);
+      const unmount = setTimeout(() => setShow(false), 2800);
       return () => {
-        clearTimeout(toReveal);
+        clearTimeout(toRevealed);
         clearTimeout(toClosing);
         clearTimeout(unmount);
       };
@@ -39,7 +40,7 @@ export default function GraffitiIntro() {
   if (!show) return null;
 
   const closing = phase === "closing";
-  const revealed = phase !== "draw";
+  const spraying = phase === "spraying";
 
   return (
     <div className="fixed inset-0 z-[100]">
@@ -61,66 +62,48 @@ export default function GraffitiIntro() {
           closing ? "opacity-0" : "opacity-100"
         }`}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.16),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.14),transparent_60%)]" />
+        {/* Textura fina de pared, apenas visible, para que el spray tenga "superficie" */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, #FAF8F5 0px, #FAF8F5 1px, transparent 1px, transparent 14px)",
+          }}
+        />
 
-        <div className="relative w-36 h-36 md:w-48 md:h-48">
-          {!revealed && (
-            <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_12px_rgba(212,175,55,0.25)]">
-              <circle
-                cx="50"
-                cy="50"
-                r="46"
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="1.5"
-                pathLength={1}
-                style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
-                className="animate-draw"
+        <div className="relative w-[78vw] max-w-md md:max-w-xl">
+          {/* Bruma del spray: un par de nubes suaves que se disipan detrás del logo */}
+          {spraying && (
+            <>
+              <span
+                className="absolute -inset-x-6 top-1/3 h-1/3 bg-[radial-gradient(ellipse,rgba(250,248,245,0.35),transparent_70%)] blur-xl animate-mist-fade"
+                style={{ animationDelay: "80ms" }}
               />
-              <path
-                d="M15 55 Q15 25 50 22 Q85 25 85 55 Q50 68 15 55 Z"
-                fill="none"
-                stroke="#FAF8F5"
-                strokeWidth="2"
-                pathLength={1}
-                style={{ strokeDasharray: 1, strokeDashoffset: 1, animationDelay: "300ms" }}
-                className="animate-draw"
+              <span
+                className="absolute -inset-x-10 top-1/2 h-1/2 bg-[radial-gradient(ellipse,rgba(212,175,55,0.25),transparent_70%)] blur-2xl animate-mist-fade"
+                style={{ animationDelay: "260ms" }}
               />
-              <path
-                d="M15 55 Q50 75 85 55 L92 66 Q50 88 8 66 Z"
-                fill="none"
-                stroke="#8C0B1E"
-                strokeWidth="2"
-                pathLength={1}
-                style={{ strokeDasharray: 1, strokeDashoffset: 1, animationDelay: "550ms" }}
-                className="animate-draw"
-              />
-            </svg>
+            </>
           )}
 
-          {revealed && (
-            <div className="relative w-full h-full animate-badge-pop">
+          <div className="relative w-full aspect-[1942/809] animate-spray-focus">
+            <div className="absolute inset-0 animate-spray-reveal">
               <Image
-                src="/brand/three-caps-logo.png"
+                src="/brand/three-caps-wordmark.png"
                 alt="Three Caps"
                 fill
-                className="object-contain rounded-full"
                 priority
+                className="object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.2)]"
               />
-              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-cream/40 to-transparent animate-shine-sweep" />
-              </div>
             </div>
-          )}
-        </div>
 
-        <span
-          className={`mt-6 text-cream text-xs md:text-sm tracking-[0.4em] transition-opacity duration-500 ${
-            revealed ? "opacity-80" : "opacity-0"
-          }`}
-        >
-          THREE CAPS
-        </span>
+            {/* Boquilla del spray: borde de luz que recorre el logo mientras se revela */}
+            {spraying && (
+              <span className="absolute inset-y-0 w-6 -ml-3 blur-md bg-gradient-to-r from-transparent via-cream to-transparent animate-spray-glow-move" />
+            )}
+          </div>
+        </div>
 
         <span className="absolute bottom-10 text-cream/40 text-[11px] tracking-[0.25em]">
           TOCA PARA CONTINUAR
