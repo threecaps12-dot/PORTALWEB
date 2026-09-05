@@ -7,29 +7,26 @@ type Phase = "spraying" | "revealed" | "closing";
 
 /**
  * Cortina de apertura: el logo aparece "escrito" con un pase de spray
- * (clip-path barriendo de izquierda a derecha + un borde de luz que
- * simula la boquilla del spray), se mantiene un instante, y luego dos
- * paneles tipo telón se abren en direcciones opuestas. Una vez por
- * sesión, tocable para saltarla.
+ * (clip-path barriendo de izquierda a derecha + nubes de bruma y una
+ * boquilla de luz que recorren el mismo borde), se mantiene un instante,
+ * y luego dos paneles tipo telón se abren en direcciones opuestas.
+ * Se reproduce en cada carga/refresh; tocable para saltarla.
  */
 export default function GraffitiIntro() {
   const [show, setShow] = useState(false);
   const [phase, setPhase] = useState<Phase>("spraying");
 
   useEffect(() => {
-    const seen = sessionStorage.getItem("three-caps-intro-seen");
-    if (!seen) {
-      setShow(true);
-      sessionStorage.setItem("three-caps-intro-seen", "1");
-      const toRevealed = setTimeout(() => setPhase("revealed"), 1150);
-      const toClosing = setTimeout(() => setPhase("closing"), 2050);
-      const unmount = setTimeout(() => setShow(false), 2800);
-      return () => {
-        clearTimeout(toRevealed);
-        clearTimeout(toClosing);
-        clearTimeout(unmount);
-      };
-    }
+    setShow(true);
+    setPhase("spraying");
+    const toRevealed = setTimeout(() => setPhase("revealed"), 1150);
+    const toClosing = setTimeout(() => setPhase("closing"), 2050);
+    const unmount = setTimeout(() => setShow(false), 2800);
+    return () => {
+      clearTimeout(toRevealed);
+      clearTimeout(toClosing);
+      clearTimeout(unmount);
+    };
   }, []);
 
   function skip() {
@@ -41,6 +38,13 @@ export default function GraffitiIntro() {
 
   const closing = phase === "closing";
   const spraying = phase === "spraying";
+
+  const PUFFS = [
+    { top: "8%", size: 64, blur: "blur-lg", delay: "0ms", color: "rgba(250,248,245,0.55)" },
+    { top: "38%", size: 90, blur: "blur-xl", delay: "60ms", color: "rgba(212,175,55,0.4)" },
+    { top: "62%", size: 56, blur: "blur-md", delay: "120ms", color: "rgba(250,248,245,0.5)" },
+    { top: "82%", size: 74, blur: "blur-lg", delay: "40ms", color: "rgba(212,175,55,0.35)" },
+  ];
 
   return (
     <div className="fixed inset-0 z-[100]">
@@ -72,37 +76,38 @@ export default function GraffitiIntro() {
           }}
         />
 
-        <div className="relative w-[78vw] max-w-md md:max-w-xl">
-          {/* Bruma del spray: un par de nubes suaves que se disipan detrás del logo */}
-          {spraying && (
-            <>
+        <div className="relative w-[78vw] max-w-md md:max-w-xl aspect-[1942/809] overflow-hidden">
+          {/* Nubes de bruma que viajan junto al borde del spray */}
+          {spraying &&
+            PUFFS.map((p, i) => (
               <span
-                className="absolute -inset-x-6 top-1/3 h-1/3 bg-[radial-gradient(ellipse,rgba(250,248,245,0.35),transparent_70%)] blur-xl animate-mist-fade"
-                style={{ animationDelay: "80ms" }}
+                key={i}
+                className={`absolute rounded-full ${p.blur} animate-spray-glow-move`}
+                style={{
+                  top: p.top,
+                  width: p.size,
+                  height: p.size,
+                  marginLeft: -p.size / 2,
+                  background: `radial-gradient(circle, ${p.color}, transparent 70%)`,
+                  animationDelay: p.delay,
+                }}
               />
-              <span
-                className="absolute -inset-x-10 top-1/2 h-1/2 bg-[radial-gradient(ellipse,rgba(212,175,55,0.25),transparent_70%)] blur-2xl animate-mist-fade"
-                style={{ animationDelay: "260ms" }}
-              />
-            </>
-          )}
+            ))}
 
-          <div className="relative w-full aspect-[1942/809] animate-spray-focus">
-            <div className="absolute inset-0 animate-spray-reveal">
-              <Image
-                src="/brand/three-caps-wordmark.png"
-                alt="Three Caps"
-                fill
-                priority
-                className="object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.2)]"
-              />
-            </div>
-
-            {/* Boquilla del spray: borde de luz que recorre el logo mientras se revela */}
-            {spraying && (
-              <span className="absolute inset-y-0 w-6 -ml-3 blur-md bg-gradient-to-r from-transparent via-cream to-transparent animate-spray-glow-move" />
-            )}
+          <div className="absolute inset-0 animate-spray-reveal">
+            <Image
+              src="/brand/three-caps-wordmark.png"
+              alt="Three Caps"
+              fill
+              priority
+              className="object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.2)]"
+            />
           </div>
+
+          {/* Boquilla del spray: borde de luz que recorre el logo mientras se revela */}
+          {spraying && (
+            <span className="absolute inset-y-0 w-8 -ml-4 blur-md bg-gradient-to-r from-transparent via-cream to-transparent animate-spray-glow-move" />
+          )}
         </div>
 
         <span className="absolute bottom-10 text-cream/40 text-[11px] tracking-[0.25em]">

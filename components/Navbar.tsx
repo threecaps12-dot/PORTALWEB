@@ -32,17 +32,15 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
   return (
     <header className="sticky top-0 z-40 bg-cream/95 dark:bg-obsidian/95 backdrop-blur border-b border-obsidian/10 dark:border-cream/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center bg-obsidian rounded px-2.5 py-1.5">
           <Image
-            src="/brand/three-caps-logo.png"
+            src="/brand/three-caps-wordmark.png"
             alt="Three Caps"
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
+            width={1942}
+            height={809}
+            className="h-7 w-auto object-contain"
+            priority
           />
-          <span className="font-display text-base tracking-wide text-obsidian dark:text-cream hidden sm:inline">
-            THREE <span className="text-crimson">CAPS</span>
-          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-body text-sm tracking-wide">
