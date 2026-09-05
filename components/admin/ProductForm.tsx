@@ -395,7 +395,7 @@ export default function ProductForm({
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value as typeof status)}
-            className="border border-obsidian/15 px-3 py-2.5 text-sm bg-white focus:outline-none focus:border-crimson w-fit"
+            className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson w-fit"
           >
             <option value="active">Activo (visible en el sitio)</option>
             <option value="draft">Borrador (oculto)</option>
@@ -423,14 +423,14 @@ export default function ProductForm({
                 value={v.size}
                 onChange={(e) => updateVariant(i, "size", e.target.value)}
                 required
-                className="border border-obsidian/15 px-2.5 py-2 text-sm focus:outline-none focus:border-crimson"
+                className="border border-obsidian/15 px-2.5 py-2 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
               />
               <input
                 placeholder="SKU"
                 value={v.sku}
                 onChange={(e) => updateVariant(i, "sku", e.target.value)}
                 required
-                className="border border-obsidian/15 px-2.5 py-2 text-sm font-mono focus:outline-none focus:border-crimson"
+                className="border border-obsidian/15 px-2.5 py-2 text-sm font-mono text-obsidian bg-white focus:outline-none focus:border-crimson"
               />
               <input
                 type="number"
@@ -439,7 +439,7 @@ export default function ProductForm({
                 value={v.stock}
                 onChange={(e) => updateVariant(i, "stock", e.target.value)}
                 required
-                className="border border-obsidian/15 px-2.5 py-2 text-sm focus:outline-none focus:border-crimson"
+                className="border border-obsidian/15 px-2.5 py-2 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson"
               />
               <button
                 type="button"

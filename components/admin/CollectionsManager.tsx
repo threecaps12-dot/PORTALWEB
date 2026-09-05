@@ -74,7 +74,7 @@ export default function CollectionsManager({ collections }: { collections: Colle
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Nueva categoría (ej. Accesorios)"
-          className="border border-obsidian/15 px-3 py-2 text-sm flex-1 focus:outline-none focus:border-crimson"
+          className="border border-obsidian/15 px-3 py-2 text-sm text-obsidian bg-white flex-1 focus:outline-none focus:border-crimson"
         />
         <button
           type="submit"

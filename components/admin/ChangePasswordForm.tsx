@@ -48,7 +48,7 @@ export default function ChangePasswordForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson transition-colors"
+          className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson transition-colors"
           placeholder="••••••••"
           required
         />
@@ -63,7 +63,7 @@ export default function ChangePasswordForm() {
           type="password"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
-          className="border border-obsidian/15 px-3 py-2.5 text-sm focus:outline-none focus:border-crimson transition-colors"
+          className="border border-obsidian/15 px-3 py-2.5 text-sm text-obsidian bg-white focus:outline-none focus:border-crimson transition-colors"
           placeholder="••••••••"
           required
         />
