@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "smqdyqqtiufzmdltgsrx.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
   eslint: {
     // No bloquear el build de producción por reglas de lint —
     // el lint se corre aparte en desarrollo/CI.
