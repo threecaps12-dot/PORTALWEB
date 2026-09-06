@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import AuroraBackground from "@/components/admin/AuroraBackground";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,22 +41,16 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-obsidian flex items-center justify-center px-4 relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(45deg, #FAF8F5 0px, #FAF8F5 1px, transparent 1px, transparent 14px)",
-        }}
-      />
+      <AuroraBackground />
 
-      <div className="relative w-full max-w-sm">
+      <div className="relative w-full max-w-sm animate-fade-up">
         <div className="flex flex-col items-center mb-8">
           <Image
             src="/brand/three-caps-wordmark.png"
             alt="Three Caps"
             width={1942}
             height={809}
-            className="h-16 w-auto object-contain mb-4"
+            className="h-16 w-auto object-contain mb-4 drop-shadow-[0_0_20px_rgba(212,175,55,0.3)]"
             priority
           />
           <span className="text-gold text-xs tracking-[0.25em]">ACCESO RESTRINGIDO — ADMIN</span>
@@ -63,7 +58,7 @@ export default function AdminLoginPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-obsidian-soft border border-cream/10 p-7 flex flex-col gap-4"
+          className="bg-obsidian-soft/70 backdrop-blur-xl border border-cream/10 shadow-[0_0_40px_rgba(140,11,30,0.15)] p-7 flex flex-col gap-4 transition-shadow duration-500 focus-within:border-gold/40 focus-within:shadow-[0_0_50px_rgba(212,175,55,0.15)]"
         >
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-cream/50 text-xs tracking-wide">

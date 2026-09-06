@@ -10,13 +10,14 @@ type ProductRow = {
   compare_at_price: number | null;
   category_label: string | null;
   has_real_photo: boolean;
+  is_featured: boolean;
   product_images: { url: string; sort_order: number }[];
   product_variants: { size: string; stock: number }[];
   collections: { slug: string; name: string } | null;
 };
 
 const PRODUCT_SELECT = `
-  id, slug, name, description, price, compare_at_price, category_label, has_real_photo,
+  id, slug, name, description, price, compare_at_price, category_label, has_real_photo, is_featured,
   product_images(url, sort_order),
   product_variants(size, stock),
   collections(slug, name)
@@ -35,6 +36,7 @@ function toCardData(row: ProductRow): ProductCardData {
     imageUrl: images[0]?.url ?? "/products/gorra-concrete-jungle.jpg",
     sizes: Array.from(new Set(row.product_variants.map((v) => v.size))),
     hasRealPhoto: row.has_real_photo,
+    isFeatured: row.is_featured,
     stockLeft: row.product_variants.reduce((sum, v) => sum + v.stock, 0),
   };
 }

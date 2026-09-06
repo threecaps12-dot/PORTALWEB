@@ -6,7 +6,7 @@ import SearchBar from "@/components/SearchBar";
 const CATEGORIES = [
   { label: "GORRAS", href: "/catalogo?cat=gorras" },
   { label: "ROPA", href: "/catalogo?cat=ropa" },
-  { label: "COLECCIONES", href: "/catalogo?cat=colecciones" },
+  { label: "COLECCIONES", href: "/catalogo" },
   { label: "DESTACADOS", href: "/catalogo?cat=destacados" },
 ];
 

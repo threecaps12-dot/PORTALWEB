@@ -67,6 +67,18 @@ module.exports = {
           "50%": { opacity: "0.6", transform: "scale(0.97)" },
           "75%": { opacity: "0.85", transform: "scale(1.06)" },
         },
+        "aurora-drift-1": {
+          "0%, 100%": { transform: "translate(-10%, -10%) scale(1)" },
+          "50%": { transform: "translate(10%, 5%) scale(1.15)" },
+        },
+        "aurora-drift-2": {
+          "0%, 100%": { transform: "translate(8%, 10%) scale(1.1)" },
+          "50%": { transform: "translate(-8%, -8%) scale(0.95)" },
+        },
+        "aurora-drift-3": {
+          "0%, 100%": { transform: "translate(-5%, 8%) scale(0.9)" },
+          "50%": { transform: "translate(6%, -10%) scale(1.1)" },
+        },
       },
       animation: {
         "draw": "draw 0.85s cubic-bezier(0.65,0,0.35,1) forwards",
@@ -78,6 +90,9 @@ module.exports = {
         "spray-glow-move": "spray-glow-move 950ms cubic-bezier(0.45,0,0.4,1) forwards",
         "ember-float": "ember-float 2400ms ease-in forwards",
         "flame-flicker": "flame-flicker 1.4s ease-in-out infinite",
+        "aurora-drift-1": "aurora-drift-1 14s ease-in-out infinite",
+        "aurora-drift-2": "aurora-drift-2 18s ease-in-out infinite",
+        "aurora-drift-3": "aurora-drift-3 22s ease-in-out infinite",
       },
     },
   },

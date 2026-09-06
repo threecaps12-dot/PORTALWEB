@@ -13,13 +13,19 @@ export default function CatalogoClient({
   products,
   collections,
   initialQuery = "",
+  initialCategory = "",
 }: {
   products: ProductCardData[];
   collections: { id: string; name: string; slug: string }[];
   initialQuery?: string;
+  initialCategory?: string;
 }) {
+  const isKnownCollection = collections.some((c) => c.slug === initialCategory);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [selectedCollection, setSelectedCollection] = useState<string>("todas");
+  const [selectedCollection, setSelectedCollection] = useState<string>(
+    isKnownCollection ? initialCategory : "todas"
+  );
+  const [onlyFeatured, setOnlyFeatured] = useState(initialCategory === "destacados");
   const [maxPrice, setMaxPrice] = useState(100);
   const [cartCount, setCartCount] = useState(0);
   const [query, setQuery] = useState(initialQuery);
@@ -36,6 +42,7 @@ export default function CatalogoClient({
 
   const filteredProducts = products.filter((p) => {
     if (query.trim() && !p.name.toLowerCase().includes(query.trim().toLowerCase())) return false;
+    if (onlyFeatured && !p.isFeatured) return false;
     if (selectedCollection !== "todas" && p.collectionSlug !== selectedCollection) return false;
     if (selectedSizes.length > 0 && !p.sizes.some((s) => selectedSizes.includes(s))) return false;
     return p.price <= maxPrice;
@@ -64,9 +71,12 @@ export default function CatalogoClient({
             <ul className="space-y-2 text-sm">
               <li>
                 <button
-                  onClick={() => setSelectedCollection("todas")}
+                  onClick={() => {
+                    setSelectedCollection("todas");
+                    setOnlyFeatured(false);
+                  }}
                   className={
-                    selectedCollection === "todas"
+                    selectedCollection === "todas" && !onlyFeatured
                       ? "text-crimson font-medium"
                       : "text-obsidian/70 dark:text-cream/70"
                   }
@@ -74,12 +84,28 @@ export default function CatalogoClient({
                   Todas
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setOnlyFeatured(true);
+                    setSelectedCollection("todas");
+                  }}
+                  className={
+                    onlyFeatured ? "text-crimson font-medium" : "text-obsidian/70 dark:text-cream/70"
+                  }
+                >
+                  Destacados
+                </button>
+              </li>
               {collections.map((c) => (
                 <li key={c.id}>
                   <button
-                    onClick={() => setSelectedCollection(c.slug)}
+                    onClick={() => {
+                      setSelectedCollection(c.slug);
+                      setOnlyFeatured(false);
+                    }}
                     className={
-                      selectedCollection === c.slug
+                      selectedCollection === c.slug && !onlyFeatured
                         ? "text-crimson font-medium"
                         : "text-obsidian/70 dark:text-cream/70"
                     }

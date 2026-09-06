@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Three Caps — Gorras y streetwear urbano",
   description: "Edición limitada. Bordado real. Diseño de la calle.",
   icons: {
-    icon: "/brand/three-caps-logo.png",
+    icon: "/brand/favicon-icon.png",
   },
 };
 

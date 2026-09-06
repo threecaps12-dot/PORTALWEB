@@ -34,13 +34,13 @@ export default function HomeClient({ featuredProducts }: { featuredProducts: Pro
             imageUrl: "/banners/promo-gotica.jpg",
             title: "COLECCIÓN GÓTICA",
             subtitle: "BORDADO EN RELIEVE",
-            href: "/catalogo?cat=goticas",
+            href: "/catalogo?q=gotica",
           },
           {
             imageUrl: "/banners/promo-diamante.jpg",
             title: "EDICIÓN DIAMANTE",
             subtitle: "BRILLO QUE NO PASA DESAPERCIBIDO",
-            href: "/catalogo?cat=destacados",
+            href: "/catalogo?q=diamante",
           },
         ]}
       />

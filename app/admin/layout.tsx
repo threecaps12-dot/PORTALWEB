@@ -3,6 +3,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/admin/LogoutButton";
 import BackButton from "@/components/admin/BackButton";
+import AuroraBackground from "@/components/admin/AuroraBackground";
 
 const NAV = [
   { label: "Resumen", href: "/admin" },
@@ -24,8 +25,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen bg-cream flex">
-      <aside className="w-56 bg-obsidian text-cream/80 min-h-screen p-6 flex flex-col">
-        <div className="flex items-center mb-8">
+      <aside className="relative overflow-hidden w-56 bg-obsidian text-cream/80 min-h-screen p-6 flex flex-col">
+        <AuroraBackground />
+        <div className="relative flex items-center mb-8">
           <Image
             src="/brand/three-caps-wordmark.png"
             alt="Three Caps"
@@ -34,7 +36,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             className="h-8 w-auto object-contain"
           />
         </div>
-        <nav className="space-y-3 text-sm">
+        <nav className="relative space-y-3 text-sm">
           {NAV.map((item) => (
             <Link key={item.href} href={item.href} className="block hover:text-cream transition-colors">
               {item.label}
@@ -42,7 +44,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           ))}
         </nav>
 
-        <div className="mt-auto pt-6 border-t border-cream/10">
+        <div className="relative mt-auto pt-6 border-t border-cream/10">
           <p className="text-cream/40 text-xs mb-2 truncate">{user.email}</p>
           <LogoutButton />
         </div>

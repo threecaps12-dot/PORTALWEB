@@ -15,6 +15,7 @@ export type ProductCardData = {
   sizes: string[];
   hasRealPhoto?: boolean; // false = mostrar ícono de referencia en vez de foto
   stockLeft?: number;
+  isFeatured?: boolean;
 };
 
 /** Ícono de línea simple por tipo de producto, usado mientras no hay foto real. */
