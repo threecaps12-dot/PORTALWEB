@@ -295,7 +295,7 @@ export default function ProductForm({
           <label className="text-obsidian/50 text-xs tracking-wide">CATEGORÍA</label>
           {collections.length === 0 ? (
             <p className="text-crimson text-xs border border-crimson/30 px-3 py-2.5">
-              Todavía no hay categorías — crea una arriba en "Productos" antes de continuar.
+              Todavía no hay categorías. Crea una arriba en "Productos" antes de continuar.
             </p>
           ) : (
             <select

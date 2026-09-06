@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
             className="h-16 w-auto object-contain mb-4 drop-shadow-[0_0_20px_rgba(212,175,55,0.3)]"
             priority
           />
-          <span className="text-gold text-xs tracking-[0.25em]">ACCESO RESTRINGIDO — ADMIN</span>
+          <span className="text-gold text-xs tracking-[0.25em]">ACCESO RESTRINGIDO ADMIN</span>
         </div>
 
         <form
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-center text-cream/30 text-xs mt-6 tracking-wide">
-          LEGION STUDIO — PANEL INTERNO
+          LEGION STUDIO · PANEL INTERNO
         </p>
       </div>
     </div>

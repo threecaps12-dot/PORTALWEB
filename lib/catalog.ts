@@ -92,6 +92,7 @@ export async function getProductBySlug(slug: string) {
     compareAtPrice: row.compare_at_price ? Number(row.compare_at_price) : undefined,
     categoryLabel: row.category_label ?? undefined,
     imageUrl: images[0]?.url ?? "/products/gorra-concrete-jungle.jpg",
+    images: images.length > 0 ? images.map((i) => i.url) : ["/products/gorra-concrete-jungle.jpg"],
     sizes: Array.from(new Set(row.product_variants.map((v) => v.size))),
     hasRealPhoto: row.has_real_photo,
     stockLeft,

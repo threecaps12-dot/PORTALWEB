@@ -1,6 +1,13 @@
 "use client";
 
-import { buildWhatsAppLink, buildInstagramLink, generateOrderNumber, CartLine } from "@/lib/whatsapp";
+import { useState } from "react";
+import {
+  buildWhatsAppLink,
+  buildInstagramLink,
+  buildOrderMessage,
+  generateOrderNumber,
+  CartLine,
+} from "@/lib/whatsapp";
 
 function WhatsAppIcon() {
   return (
@@ -37,6 +44,20 @@ function PayPalIcon() {
 export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
   const orderNumber = generateOrderNumber();
   const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
+  const [copied, setCopied] = useState(false);
+
+  async function handleInstagramClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    const message = buildOrderMessage(items, orderNumber);
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 4000);
+    } catch {
+      // Si el navegador bloquea el portapapeles, igual abrimos el chat.
+    }
+    window.open(buildInstagramLink(), "_blank", "noopener,noreferrer");
+  }
 
   return (
     <div className="border border-obsidian/10 dark:border-cream/10 p-6 md:p-8 bg-white dark:bg-obsidian-soft">
@@ -62,17 +83,21 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
 
         <a
           href={buildInstagramLink()}
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={handleInstagramClick}
           className="flex items-center justify-center gap-2 border border-obsidian dark:border-cream text-obsidian dark:text-cream text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream dark:hover:bg-cream dark:hover:text-obsidian transition-colors"
         >
           <InstagramIcon />
           FINALIZAR POR INSTAGRAM
         </a>
+        {copied && (
+          <p className="text-crimson text-xs text-center -mt-1">
+            Mensaje del pedido copiado. Pégalo (Ctrl+V) en el chat de Instagram y dale enviar.
+          </p>
+        )}
 
         <div className="flex items-center gap-2 justify-center text-obsidian/50 dark:text-cream/50 text-xs pt-2">
           <PayPalIcon />
-          También aceptamos PayPal — indícalo al confirmar tu pedido.
+          También aceptamos PayPal, indícalo al confirmar tu pedido.
         </div>
       </div>
     </div>

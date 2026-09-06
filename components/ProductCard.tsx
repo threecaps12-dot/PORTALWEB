@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export type ProductCardData = {
   id: string;
@@ -66,7 +67,10 @@ export default function ProductCard({
 
   return (
     <div className="group flex flex-col">
-      <div className="relative aspect-[4/5] bg-[#F2EEE6] dark:bg-obsidian-soft overflow-hidden flex items-center justify-center">
+      <Link
+        href={`/producto/${product.slug}`}
+        className="relative aspect-[4/5] bg-[#F2EEE6] dark:bg-obsidian-soft overflow-hidden flex items-center justify-center"
+      >
         {product.categoryLabel && (
           <span className="absolute top-3 left-3 z-10 bg-obsidian text-cream text-[10px] tracking-widest px-2 py-1">
             {product.categoryLabel}
@@ -87,11 +91,13 @@ export default function ProductCard({
             </span>
           </>
         )}
-      </div>
+      </Link>
 
-      <h3 className="font-display tracking-wide text-base text-obsidian dark:text-cream mt-3">
-        {product.name}
-      </h3>
+      <Link href={`/producto/${product.slug}`}>
+        <h3 className="font-display tracking-wide text-base text-obsidian dark:text-cream mt-3 hover:text-crimson transition-colors">
+          {product.name}
+        </h3>
+      </Link>
 
       <div className="flex items-baseline gap-2 mt-1">
         <span className="text-obsidian dark:text-cream font-semibold">${product.price.toFixed(2)}</span>
@@ -103,7 +109,7 @@ export default function ProductCard({
       </div>
 
       {typeof product.stockLeft === "number" && product.stockLeft > 0 && product.stockLeft <= 5 && (
-        <p className="text-crimson text-xs mt-1">Quedan {product.stockLeft} — se agota rápido</p>
+        <p className="text-crimson text-xs mt-1">Quedan {product.stockLeft}, se agota rápido</p>
       )}
 
       <div className="flex flex-wrap gap-1.5 mt-2">

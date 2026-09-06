@@ -138,7 +138,7 @@ export default function CatalogoClient({
 
           <div>
             <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">
-              PRECIO MÁXIMO — ${maxPrice}
+              PRECIO MÁXIMO: ${maxPrice}
             </h3>
             <input
               type="range"

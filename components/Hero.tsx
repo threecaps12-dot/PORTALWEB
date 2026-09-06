@@ -20,7 +20,7 @@ export default function Hero() {
 
       <div className="relative h-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col justify-end pb-16">
         <span className="text-gold text-xs md:text-sm tracking-[0.2em] mb-3 animate-fade-up" style={{ animationDelay: "150ms", opacity: 0 }}>
-          EDICIÓN LIMITADA — QUEDAN POCAS UNIDADES
+          EDICIÓN LIMITADA · QUEDAN POCAS UNIDADES
         </span>
         <h1
           className="font-display text-cream text-4xl md:text-6xl leading-[0.95] max-w-xl mb-6 animate-fade-up"

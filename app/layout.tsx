@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Bebas_Neue, Oswald } from "next/font/google";
 import Script from "next/script";
 import GraffitiIntro from "@/components/GraffitiIntro";
 import "./globals.css";
@@ -11,14 +11,15 @@ const bebasNeue = Bebas_Neue({
   display: "swap",
 });
 
-const inter = Inter({
+const oswald = Oswald({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Three Caps — Gorras y streetwear urbano",
+  title: "Three Caps | Gorras y streetwear urbano",
   description: "Edición limitada. Bordado real. Diseño de la calle.",
   icons: {
     icon: "/brand/favicon-icon.png",
@@ -37,7 +38,7 @@ const THEME_INIT_SCRIPT = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning className={`${bebasNeue.variable} ${inter.variable}`}>
+    <html lang="es" suppressHydrationWarning className={`${bebasNeue.variable} ${oswald.variable}`}>
       <head>
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
