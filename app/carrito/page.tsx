@@ -4,6 +4,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CheckoutHandoff from "@/components/CheckoutHandoff";
+import ShippingInfo from "@/components/ShippingInfo";
 import { CartLine } from "@/lib/whatsapp";
 
 // Placeholder — reemplazar por el carrito real (Supabase cart_items o
@@ -37,6 +38,8 @@ export default function CarritoPage() {
             </div>
           ))}
         </div>
+
+        <ShippingInfo />
 
         <CheckoutHandoff items={CART_ITEMS} />
       </div>

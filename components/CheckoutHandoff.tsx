@@ -62,7 +62,9 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
   return (
     <div className="border border-obsidian/10 dark:border-cream/10 p-6 md:p-8 bg-white dark:bg-obsidian-soft">
       <div className="flex items-baseline justify-between mb-6">
-        <span className="text-obsidian/60 dark:text-cream/60 text-sm">Pedido #{orderNumber}</span>
+        <span className="text-obsidian/60 dark:text-cream/60 text-sm" suppressHydrationWarning>
+          Pedido #{orderNumber}
+        </span>
         <span className="font-display text-2xl text-obsidian dark:text-cream">${total.toFixed(2)}</span>
       </div>
 
