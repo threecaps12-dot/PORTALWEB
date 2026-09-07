@@ -5,6 +5,7 @@ import Image from "next/image";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n";
 
 type ProductDetail = {
   name: string;
@@ -18,6 +19,7 @@ type ProductDetail = {
 };
 
 export default function ProductDetailClient({ product }: { product: ProductDetail }) {
+  const { t } = useLanguage();
   const [selectedSize, setSelectedSize] = useState<string | null>(
     product.sizes.length === 1 ? product.sizes[0] : null
   );
@@ -62,7 +64,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
               />
             )}
             <span className="absolute bottom-3 right-3 bg-obsidian/70 text-cream text-[10px] tracking-widest px-2 py-1 pointer-events-none">
-              CLIC PARA AMPLIAR
+              {t("product.clickToZoom")}
             </span>
           </div>
 
@@ -104,7 +106,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
 
           {product.stockLeft > 0 && product.stockLeft <= 10 && (
             <p className="text-crimson text-sm mb-6">
-              Quedan {product.stockLeft} unidades disponibles
+              {t("product.lowStockDetail", { n: product.stockLeft })}
             </p>
           )}
 
@@ -113,7 +115,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
           </p>
 
           <div className="mb-8">
-            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">TALLA</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">{t("product.talla")}</h3>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((size) => (
                 <button
@@ -135,7 +137,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
             disabled={!selectedSize || product.stockLeft === 0}
             className="w-full bg-obsidian text-cream text-sm tracking-wide py-4 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-crimson transition-colors"
           >
-            {product.stockLeft === 0 ? "AGOTADO" : "AÑADIR AL CARRITO"}
+            {product.stockLeft === 0 ? t("product.soldOut") : t("product.addToCart")}
           </button>
         </div>
       </div>
@@ -149,7 +151,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
         >
           <button
             onClick={() => setLightboxOpen(false)}
-            aria-label="Cerrar"
+            aria-label={t("product.close")}
             className="absolute top-6 right-6 text-cream text-3xl leading-none hover:text-crimson"
           >
             ✕

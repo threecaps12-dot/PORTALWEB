@@ -8,8 +8,10 @@ import ProductGrid from "@/components/ProductGrid";
 import PromoBanner from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { ProductCardData } from "@/components/ProductCard";
+import { useLanguage } from "@/lib/i18n";
 
 export default function HomeClient({ featuredProducts }: { featuredProducts: ProductCardData[] }) {
+  const { t } = useLanguage();
   const [cartCount, setCartCount] = useState(0);
 
   function handleAddToCart(productId: string, size: string) {
@@ -24,7 +26,7 @@ export default function HomeClient({ featuredProducts }: { featuredProducts: Pro
       <Navbar cartCount={cartCount} />
       <Hero />
       <ProductGrid
-        title="RECOMENDADOS DE LA SEMANA"
+        title={t("home.weeklyPicks")}
         products={featuredProducts}
         onAddToCart={handleAddToCart}
       />
@@ -32,14 +34,14 @@ export default function HomeClient({ featuredProducts }: { featuredProducts: Pro
         tiles={[
           {
             imageUrl: "/banners/promo-gotica.jpg",
-            title: "COLECCIÓN GÓTICA",
-            subtitle: "BORDADO EN RELIEVE",
+            title: t("home.gothicTitle"),
+            subtitle: t("home.gothicSub"),
             href: "/catalogo?q=gotica",
           },
           {
             imageUrl: "/banners/promo-diamante.jpg",
-            title: "EDICIÓN DIAMANTE",
-            subtitle: "BRILLO QUE NO PASA DESAPERCIBIDO",
+            title: t("home.diamondTitle"),
+            subtitle: t("home.diamondSub"),
             href: "/catalogo?q=diamante",
           },
         ]}

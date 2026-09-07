@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/lib/i18n";
 
 function SearchIcon() {
   return (
@@ -13,6 +14,7 @@ function SearchIcon() {
 }
 
 export default function SearchBar() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -37,10 +39,10 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onBlur={() => !query && setOpen(false)}
-          placeholder="Buscar gorras..."
+          placeholder={t("nav.searchPlaceholder")}
           className="w-32 sm:w-48 bg-transparent border-b border-obsidian/40 dark:border-cream/40 text-obsidian dark:text-cream text-sm px-1 py-1 focus:outline-none focus:border-crimson"
         />
-        <button type="submit" aria-label="Buscar" className="hover:text-crimson transition-colors">
+        <button type="submit" aria-label={t("nav.search")} className="hover:text-crimson transition-colors">
           <SearchIcon />
         </button>
       </form>
@@ -48,7 +50,7 @@ export default function SearchBar() {
   }
 
   return (
-    <button aria-label="Buscar" onClick={() => setOpen(true)} className="hover:text-crimson transition-colors">
+    <button aria-label={t("nav.search")} onClick={() => setOpen(true)} className="hover:text-crimson transition-colors">
       <SearchIcon />
     </button>
   );

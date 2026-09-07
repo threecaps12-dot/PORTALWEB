@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n";
 
 export type ProductCardData = {
   id: string;
@@ -53,6 +54,7 @@ export default function ProductCard({
   product: ProductCardData;
   onAddToCart: (productId: string, size: string) => void;
 }) {
+  const { t } = useLanguage();
   const [selectedSize, setSelectedSize] = useState<string | null>(
     product.sizes.length === 1 ? product.sizes[0] : null
   );
@@ -87,7 +89,7 @@ export default function ProductCard({
           <>
             <PlaceholderIcon name={product.name} />
             <span className="absolute bottom-2.5 right-2.5 z-10 bg-obsidian/[0.08] text-obsidian/50 text-[8px] tracking-wider px-1.5 py-1 rounded-sm">
-              FOTO REF.
+              {t("product.photoRef")}
             </span>
           </>
         )}
@@ -109,7 +111,7 @@ export default function ProductCard({
       </div>
 
       {typeof product.stockLeft === "number" && product.stockLeft > 0 && product.stockLeft <= 5 && (
-        <p className="text-crimson text-xs mt-1">Quedan {product.stockLeft}, se agota rápido</p>
+        <p className="text-crimson text-xs mt-1">{t("product.lowStockCard", { n: product.stockLeft })}</p>
       )}
 
       <div className="flex flex-wrap gap-1.5 mt-2">
@@ -135,7 +137,7 @@ export default function ProductCard({
           justAdded ? "bg-green-700" : "bg-obsidian hover:bg-crimson"
         }`}
       >
-        {justAdded ? "AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}
+        {justAdded ? t("product.added") : t("product.addToCart")}
       </button>
     </div>
   );

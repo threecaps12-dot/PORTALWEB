@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 function SunIcon() {
   return (
@@ -23,6 +24,7 @@ function MoonIcon() {
 }
 
 export default function ThemeToggle() {
+  const { t } = useLanguage();
   const [dark, setDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -47,7 +49,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label={dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      aria-label={dark ? t("theme.toLight") : t("theme.toDark")}
       className="w-9 h-9 flex items-center justify-center rounded-full border border-obsidian/15 dark:border-cream/15 text-obsidian dark:text-cream hover:border-crimson hover:text-crimson transition-colors"
     >
       {dark ? <SunIcon /> : <MoonIcon />}

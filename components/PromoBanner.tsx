@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import { useLanguage } from "@/lib/i18n";
 
 export type PromoTile = {
   imageUrl: string;
@@ -10,6 +13,7 @@ export type PromoTile = {
 };
 
 export default function PromoBanner({ tiles }: { tiles: [PromoTile, PromoTile] }) {
+  const { t } = useLanguage();
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-4">
       {tiles.map((tile, i) => (
@@ -31,7 +35,7 @@ export default function PromoBanner({ tiles }: { tiles: [PromoTile, PromoTile] }
                 {tile.title}
               </h3>
               <span className="mt-3 inline-block w-fit text-cream text-xs tracking-widest border-b border-cream/40 pb-1 group-hover:border-crimson group-hover:text-crimson transition-colors">
-                VER COLECCIÓN
+                {t("promo.viewCollection")}
               </span>
             </div>
           </Link>

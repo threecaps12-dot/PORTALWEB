@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n";
 
 function TruckIcon() {
   return (
@@ -11,20 +14,15 @@ function TruckIcon() {
   );
 }
 
-type Tier = {
-  label: string;
-  desc: string;
-  price: string;
-  highlight?: boolean;
-};
-
-const TIERS: Tier[] = [
-  { label: "PRECIO REGULAR", desc: "Recoges tú, sin envío", price: "$40" },
-  { label: "1 UNIDAD", desc: "Envío a cualquier estado de USA", price: "$50" },
-  { label: "2+ UNIDADES", desc: "Envío incluido, precio por unidad", price: "$45", highlight: true },
-];
-
 export default function ShippingInfo() {
+  const { t } = useLanguage();
+
+  const tiers = [
+    { label: t("shipping.tier1Label"), desc: t("shipping.tier1Desc"), price: "$40" },
+    { label: t("shipping.tier2Label"), desc: t("shipping.tier2Desc"), price: "$50" },
+    { label: t("shipping.tier3Label"), desc: t("shipping.tier3Desc"), price: "$45", highlight: true },
+  ];
+
   return (
     <div className="bg-obsidian border border-gold/20 p-6 md:p-8 mb-8">
       <div className="flex items-end gap-3 sm:gap-5 mb-6">
@@ -40,9 +38,11 @@ export default function ShippingInfo() {
         <div className="relative bg-cream text-obsidian rounded-2xl rounded-bl-sm px-4 py-3 mb-2">
           <span className="absolute -left-2 bottom-3 w-4 h-4 bg-cream rotate-45 rounded-[2px]" />
           <p className="text-xs sm:text-sm leading-snug font-medium">
-            ¡Manda ese pedido, mi gente! Envío a todo USA. Si llevas{" "}
-            <span className="text-crimson font-bold">2 o más piezas</span>, te sale a{" "}
-            <span className="text-crimson font-bold">$45 c/u con envío incluido</span>.
+            {t("shipping.bubbleIntro")}{" "}
+            <span className="text-crimson font-bold">{t("shipping.bubbleHighlight1")}</span>
+            {t("shipping.bubbleMid")}{" "}
+            <span className="text-crimson font-bold">{t("shipping.bubbleHighlight2")}</span>
+            {t("shipping.bubbleEnd")}
           </p>
         </div>
       </div>
@@ -50,12 +50,12 @@ export default function ShippingInfo() {
       <div className="flex items-center gap-2 mb-6 text-gold">
         <TruckIcon />
         <h2 className="font-display text-cream text-base md:text-lg tracking-[0.15em]">
-          ENVÍOS A TODO USA
+          {t("shipping.title")}
         </h2>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {TIERS.map((tier) => (
+        {tiers.map((tier) => (
           <div
             key={tier.label}
             className={`relative p-4 border ${
@@ -64,7 +64,7 @@ export default function ShippingInfo() {
           >
             {tier.highlight && (
               <span className="absolute -top-2.5 left-4 bg-gold text-obsidian text-[10px] font-bold tracking-widest px-2 py-0.5">
-                MEJOR PRECIO
+                {t("shipping.bestPrice")}
               </span>
             )}
             <p className="text-cream/50 text-[11px] tracking-widest mb-1">{tier.label}</p>

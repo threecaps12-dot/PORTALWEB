@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CheckoutHandoff from "@/components/CheckoutHandoff";
 import ShippingInfo from "@/components/ShippingInfo";
 import { CartLine } from "@/lib/whatsapp";
+import { useLanguage } from "@/lib/i18n";
 
 // Placeholder — reemplazar por el carrito real (Supabase cart_items o
 // estado global tipo Zustand/Context sincronizado entre páginas).
@@ -15,13 +16,14 @@ const CART_ITEMS: CartLine[] = [
 ];
 
 export default function CarritoPage() {
+  const { t } = useLanguage();
   return (
     <>
       <AnnouncementBar />
       <Navbar cartCount={CART_ITEMS.length} />
 
       <div className="max-w-3xl mx-auto px-4 md:px-8 py-12">
-        <h1 className="font-display text-3xl text-obsidian dark:text-cream mb-8">TU CARRITO</h1>
+        <h1 className="font-display text-3xl text-obsidian dark:text-cream mb-8">{t("cart.title")}</h1>
 
         <div className="divide-y divide-obsidian/10 dark:divide-cream/10 mb-8">
           {CART_ITEMS.map((item, i) => (
@@ -29,7 +31,7 @@ export default function CarritoPage() {
               <div>
                 <p className="text-obsidian dark:text-cream">{item.productName}</p>
                 <p className="text-obsidian/50 dark:text-cream/50">
-                  Talla {item.size} × {item.quantity}
+                  {t("cart.sizeQty", { size: item.size, qty: item.quantity })}
                 </p>
               </div>
               <span className="text-obsidian dark:text-cream font-medium">

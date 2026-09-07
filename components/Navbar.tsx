@@ -1,14 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
 import SearchBar from "@/components/SearchBar";
-
-const CATEGORIES = [
-  { label: "GORRAS", href: "/catalogo?cat=gorras" },
-  { label: "ROPA", href: "/catalogo?cat=ropa" },
-  { label: "COLECCIONES", href: "/catalogo" },
-  { label: "DESTACADOS", href: "/catalogo?cat=destacados" },
-];
+import { useLanguage } from "@/lib/i18n";
 
 function CartIcon() {
   return (
@@ -21,6 +18,15 @@ function CartIcon() {
 }
 
 export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
+  const { t } = useLanguage();
+
+  const categories = [
+    { label: t("nav.gorras"), href: "/catalogo?cat=gorras" },
+    { label: t("nav.ropa"), href: "/catalogo?cat=ropa" },
+    { label: t("nav.colecciones"), href: "/catalogo" },
+    { label: t("nav.destacados"), href: "/catalogo?cat=destacados" },
+  ];
+
   return (
     <header className="sticky top-0 z-40 bg-cream/95 dark:bg-obsidian/95 backdrop-blur border-b border-obsidian/10 dark:border-cream/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
@@ -36,7 +42,7 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-display text-lg tracking-wide">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <Link
               key={cat.href}
               href={cat.href}
@@ -47,10 +53,11 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4 text-obsidian dark:text-cream">
+        <div className="flex items-center gap-3 text-obsidian dark:text-cream">
+          <LanguageToggle />
           <ThemeToggle />
           <SearchBar />
-          <Link href="/carrito" aria-label="Carrito" className="relative hover:text-crimson transition-colors">
+          <Link href="/carrito" aria-label={t("nav.cart")} className="relative hover:text-crimson transition-colors">
             <CartIcon />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-crimson text-cream text-[10px] leading-none rounded-full w-4 h-4 flex items-center justify-center">

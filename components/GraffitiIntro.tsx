@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n";
 
 type Phase = "spraying" | "revealed" | "closing";
 
@@ -30,6 +31,7 @@ function buildEmbers(count: number) {
  * Se reproduce en cada carga/refresh; tocable para saltarla.
  */
 export default function GraffitiIntro() {
+  const { t } = useLanguage();
   const [show, setShow] = useState(false);
   const [phase, setPhase] = useState<Phase>("spraying");
   const [embers] = useState(() => buildEmbers(20));
@@ -105,7 +107,7 @@ export default function GraffitiIntro() {
 
       <button
         onClick={skip}
-        aria-label="Saltar introducción"
+        aria-label={t("intro.skip")}
         className={`absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-opacity duration-500 ${
           closing ? "opacity-0" : "opacity-100"
         }`}
@@ -152,7 +154,7 @@ export default function GraffitiIntro() {
         </div>
 
         <span className="absolute bottom-10 text-cream/40 text-[11px] tracking-[0.25em]">
-          TOCA PARA CONTINUAR
+          {t("intro.tap")}
         </span>
       </button>
     </div>

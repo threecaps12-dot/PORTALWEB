@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductGrid from "@/components/ProductGrid";
 import { ProductCardData } from "@/components/ProductCard";
+import { useLanguage } from "@/lib/i18n";
 
 const SIZE_OPTIONS = ["Única", "S", "M", "L", "XL"];
 
@@ -20,6 +21,7 @@ export default function CatalogoClient({
   initialQuery?: string;
   initialCategory?: string;
 }) {
+  const { t } = useLanguage();
   const isKnownCollection = collections.some((c) => c.slug === initialCategory);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedCollection, setSelectedCollection] = useState<string>(
@@ -57,17 +59,17 @@ export default function CatalogoClient({
         {/* Sidebar de filtros */}
         <aside className="space-y-8">
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">BUSCAR</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">{t("catalog.search")}</h3>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Nombre del producto..."
+              placeholder={t("catalog.searchPlaceholder")}
               className="w-full border border-obsidian/20 dark:border-cream/20 bg-transparent text-obsidian dark:text-cream text-sm px-3 py-2 focus:outline-none focus:border-crimson"
             />
           </div>
 
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">COLECCIÓN</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">{t("catalog.collection")}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <button
@@ -81,7 +83,7 @@ export default function CatalogoClient({
                       : "text-obsidian/70 dark:text-cream/70"
                   }
                 >
-                  Todas
+                  {t("catalog.all")}
                 </button>
               </li>
               <li>
@@ -94,7 +96,7 @@ export default function CatalogoClient({
                     onlyFeatured ? "text-crimson font-medium" : "text-obsidian/70 dark:text-cream/70"
                   }
                 >
-                  Destacados
+                  {t("catalog.featured")}
                 </button>
               </li>
               {collections.map((c) => (
@@ -118,7 +120,7 @@ export default function CatalogoClient({
           </div>
 
           <div>
-            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">TALLA</h3>
+            <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">{t("catalog.talla")}</h3>
             <div className="flex flex-wrap gap-1.5">
               {SIZE_OPTIONS.map((size) => (
                 <button
@@ -138,7 +140,7 @@ export default function CatalogoClient({
 
           <div>
             <h3 className="text-xs tracking-widest text-obsidian/50 dark:text-cream/50 mb-3">
-              PRECIO MÁXIMO: ${maxPrice}
+              {t("catalog.maxPrice", { n: maxPrice })}
             </h3>
             <input
               type="range"
@@ -153,7 +155,7 @@ export default function CatalogoClient({
 
         {/* Grilla */}
         <ProductGrid
-          title="CATÁLOGO COMPLETO"
+          title={t("catalog.fullCatalog")}
           products={filteredProducts}
           onAddToCart={handleAddToCart}
         />

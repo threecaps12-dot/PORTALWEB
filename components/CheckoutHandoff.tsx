@@ -8,6 +8,7 @@ import {
   generateOrderNumber,
   CartLine,
 } from "@/lib/whatsapp";
+import { useLanguage } from "@/lib/i18n";
 
 function WhatsAppIcon() {
   return (
@@ -42,6 +43,7 @@ function PayPalIcon() {
 }
 
 export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
+  const { t } = useLanguage();
   const orderNumber = generateOrderNumber();
   const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
   const [copied, setCopied] = useState(false);
@@ -63,13 +65,13 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
     <div className="border border-obsidian/10 dark:border-cream/10 p-6 md:p-8 bg-white dark:bg-obsidian-soft">
       <div className="flex items-baseline justify-between mb-6">
         <span className="text-obsidian/60 dark:text-cream/60 text-sm" suppressHydrationWarning>
-          Pedido #{orderNumber}
+          {t("checkout.order", { n: orderNumber })}
         </span>
         <span className="font-display text-2xl text-obsidian dark:text-cream">${total.toFixed(2)}</span>
       </div>
 
       <p className="text-sm text-obsidian/70 dark:text-cream/70 mb-5">
-        Confirma tu pedido y ciérralo directo con nosotros. Te respondemos al instante.
+        {t("checkout.confirm")}
       </p>
 
       <div className="flex flex-col gap-3">
@@ -80,7 +82,7 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
           className="flex items-center justify-center gap-2 bg-crimson hover:bg-crimson-hover text-cream text-sm tracking-wide py-3.5 transition-colors"
         >
           <WhatsAppIcon />
-          FINALIZAR POR WHATSAPP
+          {t("checkout.whatsapp")}
         </a>
 
         <a
@@ -89,17 +91,17 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
           className="flex items-center justify-center gap-2 border border-obsidian dark:border-cream text-obsidian dark:text-cream text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream dark:hover:bg-cream dark:hover:text-obsidian transition-colors"
         >
           <InstagramIcon />
-          FINALIZAR POR INSTAGRAM
+          {t("checkout.instagram")}
         </a>
         {copied && (
           <p className="text-crimson text-xs text-center -mt-1">
-            Mensaje del pedido copiado. Pégalo (Ctrl+V) en el chat de Instagram y dale enviar.
+            {t("checkout.copied")}
           </p>
         )}
 
         <div className="flex items-center gap-2 justify-center text-obsidian/50 dark:text-cream/50 text-xs pt-2">
           <PayPalIcon />
-          También aceptamos PayPal, indícalo al confirmar tu pedido.
+          {t("checkout.paypal")}
         </div>
       </div>
     </div>
