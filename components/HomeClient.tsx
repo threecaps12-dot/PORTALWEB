@@ -22,6 +22,7 @@ export default function HomeClient({ featuredProducts }: { featuredProducts: Pro
       size,
       unitPrice: product.price,
       imageUrl: product.imageUrl,
+      maxQuantity: product.stockLeft,
     });
   }
 

@@ -1,3 +1,5 @@
+import { lineTotal, cartTotal } from "@/lib/cartLogic";
+
 // Número de WhatsApp del negocio (formato internacional, sin '+' ni espacios)
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "1XXXXXXXXXX";
 export const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || "tu_marca";
@@ -17,12 +19,13 @@ export type CartLine = {
 export function buildOrderMessage(items: CartLine[], orderNumber: string): string {
   const lines = items.map(
     (item) =>
-      `• ${item.productName} · Talla ${item.size}${item.color ? ` / ${item.color}` : ""} · x${item.quantity} · $${(
-        item.unitPrice * item.quantity
+      `• ${item.productName} · Talla ${item.size}${item.color ? ` / ${item.color}` : ""} · x${item.quantity} · $${lineTotal(
+        item.unitPrice,
+        item.quantity
       ).toFixed(2)}`
   );
 
-  const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
+  const total = cartTotal(items);
 
   return [
     `Hola! Quiero confirmar mi pedido #${orderNumber}`,

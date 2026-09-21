@@ -44,6 +44,7 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
       size: selectedSize,
       unitPrice: product.price,
       imageUrl: product.images[0] ?? "",
+      maxQuantity: product.stockLeft > 0 ? product.stockLeft : undefined,
     });
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1400);

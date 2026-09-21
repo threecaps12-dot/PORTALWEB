@@ -131,13 +131,17 @@ export default function ProductCard({
       </div>
 
       <button
-        disabled={!selectedSize}
+        disabled={!selectedSize || product.stockLeft === 0}
         onClick={handleAdd}
         className={`mt-3 text-cream font-display text-base tracking-wide py-2.5 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95 ${
           justAdded ? "bg-green-700" : "bg-obsidian hover:bg-crimson"
         }`}
       >
-        {justAdded ? t("product.added") : t("product.addToCart")}
+        {product.stockLeft === 0
+          ? t("product.soldOut")
+          : justAdded
+          ? t("product.added")
+          : t("product.addToCart")}
       </button>
     </div>
   );

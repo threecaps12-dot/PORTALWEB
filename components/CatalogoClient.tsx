@@ -47,6 +47,7 @@ export default function CatalogoClient({
       size,
       unitPrice: product.price,
       imageUrl: product.imageUrl,
+      maxQuantity: product.stockLeft,
     });
   }
 

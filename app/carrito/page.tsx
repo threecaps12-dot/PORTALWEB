@@ -8,6 +8,7 @@ import CheckoutHandoff from "@/components/CheckoutHandoff";
 import ShippingInfo from "@/components/ShippingInfo";
 import { CartLine } from "@/lib/whatsapp";
 import { useCart } from "@/lib/cart";
+import { lineTotal, maxAllowed } from "@/lib/cartLogic";
 import { useLanguage } from "@/lib/i18n";
 
 export default function CarritoPage() {
@@ -59,8 +60,9 @@ export default function CarritoPage() {
                       <span className="w-6 text-center text-obsidian dark:text-cream">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.productId, item.size, item.quantity + 1)}
+                        disabled={item.quantity >= maxAllowed(item.maxQuantity)}
                         aria-label={t("cart.increase")}
-                        className="w-6 h-6 flex items-center justify-center border border-obsidian/20 dark:border-cream/20 text-obsidian dark:text-cream hover:border-crimson"
+                        className="w-6 h-6 flex items-center justify-center border border-obsidian/20 dark:border-cream/20 text-obsidian dark:text-cream hover:border-crimson disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         +
                       </button>
@@ -73,7 +75,7 @@ export default function CarritoPage() {
                     </div>
                   </div>
                   <span className="text-obsidian dark:text-cream font-medium">
-                    ${(item.unitPrice * item.quantity).toFixed(2)}
+                    ${lineTotal(item.unitPrice, item.quantity).toFixed(2)}
                   </span>
                 </div>
               ))}

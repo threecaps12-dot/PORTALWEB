@@ -8,6 +8,7 @@ import {
   generateOrderNumber,
   CartLine,
 } from "@/lib/whatsapp";
+import { cartTotal } from "@/lib/cartLogic";
 import { useLanguage } from "@/lib/i18n";
 
 function WhatsAppIcon() {
@@ -45,7 +46,7 @@ function PayPalIcon() {
 export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
   const { t } = useLanguage();
   const [orderNumber] = useState(generateOrderNumber);
-  const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
+  const total = cartTotal(items);
   const [copied, setCopied] = useState(false);
 
   async function handleInstagramClick(e: React.MouseEvent<HTMLAnchorElement>) {
