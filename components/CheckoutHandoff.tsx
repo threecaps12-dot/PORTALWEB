@@ -44,7 +44,7 @@ function PayPalIcon() {
 
 export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
   const { t } = useLanguage();
-  const orderNumber = generateOrderNumber();
+  const [orderNumber] = useState(generateOrderNumber);
   const total = items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
   const [copied, setCopied] = useState(false);
 

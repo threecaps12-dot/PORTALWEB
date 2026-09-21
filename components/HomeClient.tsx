@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -9,21 +8,27 @@ import PromoBanner from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import { ProductCardData } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
+import { useCart } from "@/lib/cart";
 
 export default function HomeClient({ featuredProducts }: { featuredProducts: ProductCardData[] }) {
   const { t } = useLanguage();
-  const [cartCount, setCartCount] = useState(0);
+  const { addItem } = useCart();
 
-  function handleAddToCart(productId: string, size: string) {
-    // Placeholder — reemplazar por lógica real de carrito (Supabase cart_items
-    // o estado local + sync). Ver components/CheckoutHandoff para el cierre.
-    setCartCount((c) => c + 1);
+  function handleAddToCart(product: ProductCardData, size: string) {
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      size,
+      unitPrice: product.price,
+      imageUrl: product.imageUrl,
+    });
   }
 
   return (
     <>
       <AnnouncementBar />
-      <Navbar cartCount={cartCount} />
+      <Navbar />
       <Hero />
       <ProductGrid
         title={t("home.weeklyPicks")}

@@ -123,6 +123,11 @@ const RAW = {
     cart: {
       title: "TU CARRITO",
       sizeQty: "Talla {size} × {qty}",
+      empty: "Tu carrito está vacío.",
+      browse: "Ver catálogo",
+      decrease: "Reducir cantidad",
+      increase: "Aumentar cantidad",
+      remove: "Quitar",
     },
   },
   en: {
@@ -227,6 +232,11 @@ const RAW = {
     cart: {
       title: "YOUR CART",
       sizeQty: "Size {size} × {qty}",
+      empty: "Your cart is empty.",
+      browse: "Browse catalog",
+      decrease: "Decrease quantity",
+      increase: "Increase quantity",
+      remove: "Remove",
     },
   },
 } as const;

@@ -3,6 +3,7 @@ import { Bebas_Neue, Oswald } from "next/font/google";
 import Script from "next/script";
 import GraffitiIntro from "@/components/GraffitiIntro";
 import { LanguageProvider } from "@/lib/i18n";
+import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -47,8 +48,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-cream text-obsidian dark:bg-obsidian dark:text-cream font-body antialiased transition-colors duration-300">
         <LanguageProvider>
-          <GraffitiIntro />
-          {children}
+          <CartProvider>
+            <GraffitiIntro />
+            {children}
+          </CartProvider>
         </LanguageProvider>
       </body>
     </html>

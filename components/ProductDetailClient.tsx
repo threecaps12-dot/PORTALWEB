@@ -6,8 +6,11 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n";
+import { useCart } from "@/lib/cart";
 
 type ProductDetail = {
+  id: string;
+  slug: string;
   name: string;
   price: number;
   compareAtPrice?: number;
@@ -20,6 +23,7 @@ type ProductDetail = {
 
 export default function ProductDetailClient({ product }: { product: ProductDetail }) {
   const { t } = useLanguage();
+  const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState<string | null>(
     product.sizes.length === 1 ? product.sizes[0] : null
   );
@@ -27,8 +31,23 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
   const [zooming, setZooming] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
 
   const currentImage = product.images[activeImage] ?? product.images[0];
+
+  function handleAddToCart() {
+    if (!selectedSize) return;
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      size: selectedSize,
+      unitPrice: product.price,
+      imageUrl: product.images[0] ?? "",
+    });
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1400);
+  }
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -135,9 +154,16 @@ export default function ProductDetailClient({ product }: { product: ProductDetai
 
           <button
             disabled={!selectedSize || product.stockLeft === 0}
-            className="w-full bg-obsidian text-cream text-sm tracking-wide py-4 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-crimson transition-colors"
+            onClick={handleAddToCart}
+            className={`w-full text-cream text-sm tracking-wide py-4 disabled:opacity-30 disabled:cursor-not-allowed transition-colors ${
+              justAdded ? "bg-green-700" : "bg-obsidian hover:bg-crimson"
+            }`}
           >
-            {product.stockLeft === 0 ? t("product.soldOut") : t("product.addToCart")}
+            {product.stockLeft === 0
+              ? t("product.soldOut")
+              : justAdded
+              ? t("product.added")
+              : t("product.addToCart")}
           </button>
         </div>
       </div>

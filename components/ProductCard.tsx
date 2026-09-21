@@ -52,7 +52,7 @@ export default function ProductCard({
   onAddToCart,
 }: {
   product: ProductCardData;
-  onAddToCart: (productId: string, size: string) => void;
+  onAddToCart: (product: ProductCardData, size: string) => void;
 }) {
   const { t } = useLanguage();
   const [selectedSize, setSelectedSize] = useState<string | null>(
@@ -62,7 +62,7 @@ export default function ProductCard({
 
   function handleAdd() {
     if (!selectedSize) return;
-    onAddToCart(product.id, selectedSize);
+    onAddToCart(product, selectedSize);
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1400);
   }

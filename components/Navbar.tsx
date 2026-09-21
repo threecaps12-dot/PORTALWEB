@@ -6,6 +6,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 import SearchBar from "@/components/SearchBar";
 import { useLanguage } from "@/lib/i18n";
+import { useCart } from "@/lib/cart";
 
 function CartIcon() {
   return (
@@ -17,8 +18,9 @@ function CartIcon() {
   );
 }
 
-export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
+export default function Navbar() {
   const { t } = useLanguage();
+  const { itemCount } = useCart();
 
   const categories = [
     { label: t("nav.gorras"), href: "/catalogo?cat=gorras" },
@@ -59,9 +61,9 @@ export default function Navbar({ cartCount = 0 }: { cartCount?: number }) {
           <SearchBar />
           <Link href="/carrito" aria-label={t("nav.cart")} className="relative hover:text-crimson transition-colors">
             <CartIcon />
-            {cartCount > 0 && (
+            {itemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-crimson text-cream text-[10px] leading-none rounded-full w-4 h-4 flex items-center justify-center">
-                {cartCount}
+                {itemCount}
               </span>
             )}
           </Link>

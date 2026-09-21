@@ -11,7 +11,7 @@ export default function ProductGrid({
 }: {
   title: string;
   products: ProductCardData[];
-  onAddToCart: (productId: string, size: string) => void;
+  onAddToCart: (product: ProductCardData, size: string) => void;
 }) {
   const { t } = useLanguage();
   return (

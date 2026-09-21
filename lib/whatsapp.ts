@@ -17,7 +17,7 @@ export type CartLine = {
 export function buildOrderMessage(items: CartLine[], orderNumber: string): string {
   const lines = items.map(
     (item) =>
-      `• ${item.productName} — Talla ${item.size}${item.color ? ` / ${item.color}` : ""} x${item.quantity} — $${(
+      `• ${item.productName} · Talla ${item.size}${item.color ? ` / ${item.color}` : ""} · x${item.quantity} · $${(
         item.unitPrice * item.quantity
       ).toFixed(2)}`
   );

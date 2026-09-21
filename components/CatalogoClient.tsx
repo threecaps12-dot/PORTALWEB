@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ProductGrid from "@/components/ProductGrid";
 import { ProductCardData } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
+import { useCart } from "@/lib/cart";
 
 const SIZE_OPTIONS = ["Única", "S", "M", "L", "XL"];
 
@@ -29,8 +30,8 @@ export default function CatalogoClient({
   );
   const [onlyFeatured, setOnlyFeatured] = useState(initialCategory === "destacados");
   const [maxPrice, setMaxPrice] = useState(100);
-  const [cartCount, setCartCount] = useState(0);
   const [query, setQuery] = useState(initialQuery);
+  const { addItem } = useCart();
 
   function toggleSize(size: string) {
     setSelectedSizes((prev) =>
@@ -38,8 +39,15 @@ export default function CatalogoClient({
     );
   }
 
-  function handleAddToCart(productId: string, size: string) {
-    setCartCount((c) => c + 1);
+  function handleAddToCart(product: ProductCardData, size: string) {
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      size,
+      unitPrice: product.price,
+      imageUrl: product.imageUrl,
+    });
   }
 
   const filteredProducts = products.filter((p) => {
@@ -53,7 +61,7 @@ export default function CatalogoClient({
   return (
     <>
       <AnnouncementBar />
-      <Navbar cartCount={cartCount} />
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-10">
         {/* Sidebar de filtros */}
