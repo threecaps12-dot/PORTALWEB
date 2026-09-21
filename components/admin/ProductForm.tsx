@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { prepareImageForUpload } from "@/lib/imageUpload";
 
 type VariantInput = { size: string; sku: string; stock: number };
 
@@ -64,32 +65,38 @@ export default function ProductForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleFilesSelected(files: FileList | null) {
-    if (!files || files.length === 0) return;
+  async function handleFilesSelected(input: HTMLInputElement) {
+    const files = input.files ? Array.from(input.files) : [];
+    input.value = ""; // permite volver a elegir el mismo archivo si falla
+    if (files.length === 0) return;
     setUploading(true);
     setError(null);
 
     const uploadedUrls: string[] = [];
-    for (const file of Array.from(files)) {
-      const ext = file.name.split(".").pop() || "jpg";
-      const path = `${crypto.randomUUID()}.${ext}`;
-      const { error: uploadError } = await supabase.storage
-        .from("product-images")
-        .upload(path, file, { contentType: file.type });
-
-      if (uploadError) {
-        setError(`No se pudo subir ${file.name}: ${uploadError.message}`);
-        continue;
+    const errors: string[] = [];
+    try {
+      for (const original of files) {
+        try {
+          const file = await prepareImageForUpload(original);
+          const path = `${crypto.randomUUID()}.jpg`;
+          const { error: uploadError } = await supabase.storage
+            .from("product-images")
+            .upload(path, file, { contentType: "image/jpeg", cacheControl: "31536000" });
+          if (uploadError) throw new Error(uploadError.message);
+          const { data } = supabase.storage.from("product-images").getPublicUrl(path);
+          uploadedUrls.push(data.publicUrl);
+        } catch (e) {
+          errors.push(`${original.name}: ${e instanceof Error ? e.message : "error desconocido"}`);
+        }
       }
-      const { data } = supabase.storage.from("product-images").getPublicUrl(path);
-      uploadedUrls.push(data.publicUrl);
+    } finally {
+      if (uploadedUrls.length > 0) {
+        setImages((prev) => [...prev, ...uploadedUrls]);
+        setHasRealPhoto(true);
+      }
+      if (errors.length > 0) setError(`No se pudo subir: ${errors.join(" | ")}`);
+      setUploading(false);
     }
-
-    if (uploadedUrls.length > 0) {
-      setImages((prev) => [...prev, ...uploadedUrls]);
-      setHasRealPhoto(true);
-    }
-    setUploading(false);
   }
 
   function removeImage(index: number) {
@@ -365,7 +372,7 @@ export default function ProductForm({
               type="file"
               accept="image/*"
               multiple
-              onChange={(e) => handleFilesSelected(e.target.files)}
+              onChange={(e) => handleFilesSelected(e.target)}
               className="hidden"
             />
             {uploading ? "Subiendo..." : "+ Subir fotos (desde celular o PC)"}

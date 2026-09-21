@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    // El optimizador de imagenes de Vercel devolvia 402 (limite del plan) y las fotos nuevas
+    // salian rotas. Las fotos se sirven directo desde Supabase Storage; el panel admin ya
+    // las reduce a JPG de max 1800 px antes de subirlas.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
