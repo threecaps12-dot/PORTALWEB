@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
@@ -18,9 +20,27 @@ function CartIcon() {
   );
 }
 
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      {open ? (
+        <path d="M6 6l12 12M18 6L6 18" />
+      ) : (
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      )}
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const { t } = useLanguage();
   const { itemCount } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  // Cierra el menú móvil al cambiar de página
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   const categories = [
     { label: t("nav.gorras"), href: "/catalogo?cat=gorras" },
@@ -70,8 +90,39 @@ export default function Navbar() {
               </span>
             )}
           </Link>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={t("nav.menu")}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            className="lg:hidden hover:text-crimson transition-colors"
+          >
+            <MenuIcon open={menuOpen} />
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <nav
+          id="mobile-menu"
+          className="lg:hidden border-t border-obsidian/10 dark:border-cream/10 bg-cream dark:bg-obsidian"
+        >
+          <ul className="max-w-7xl mx-auto px-4 md:px-8 py-2 font-display text-2xl tracking-wide">
+            {categories.map((cat) => (
+              <li key={cat.href}>
+                <Link
+                  href={cat.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-2.5 text-obsidian/80 dark:text-cream/80 hover:text-crimson transition-colors"
+                >
+                  {cat.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
