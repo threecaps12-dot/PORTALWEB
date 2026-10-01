@@ -164,7 +164,13 @@ export default function CatalogoClient({
 
         {/* Grilla */}
         <ProductGrid
-          title={t("catalog.fullCatalog")}
+          title={
+            onlyFeatured
+              ? t("catalog.featured").toUpperCase()
+              : collections.find((c) => c.slug === selectedCollection)?.name.toUpperCase() ??
+                t("catalog.fullCatalog")
+          }
+          emptyMessage={t("catalog.empty")}
           products={filteredProducts}
           onAddToCart={handleAddToCart}
         />

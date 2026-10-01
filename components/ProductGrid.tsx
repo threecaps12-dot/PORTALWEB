@@ -8,20 +8,27 @@ export default function ProductGrid({
   title,
   products,
   onAddToCart,
+  emptyMessage,
 }: {
   title: string;
+  emptyMessage?: string;
   products: ProductCardData[];
   onAddToCart: (product: ProductCardData, size: string) => void;
 }) {
   const { t } = useLanguage();
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8 py-14">
+    <section className="flex-1 min-w-0 w-full max-w-7xl mx-auto px-4 md:px-8 py-14">
       <div className="flex items-center justify-between mb-8">
         <h2 className="font-display text-2xl md:text-3xl text-obsidian dark:text-cream">{title}</h2>
         <span className="text-xs text-obsidian/50 dark:text-cream/50 tracking-wide">
           {products.length} {t("grid.products")}
         </span>
       </div>
+      {products.length === 0 && emptyMessage && (
+        <p className="border border-dashed border-obsidian/15 dark:border-cream/15 py-16 px-6 text-center font-display text-xl tracking-wide text-obsidian/50 dark:text-cream/50">
+          {emptyMessage}
+        </p>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
         {products.map((product, i) => (
           <Reveal key={product.id} delay={(i % 4) * 90}>

@@ -97,6 +97,7 @@ const RAW = {
       talla: "TALLA",
       maxPrice: "PRECIO MÁXIMO: ${n}",
       fullCatalog: "CATÁLOGO COMPLETO",
+      empty: "MUY PRONTO. ESTAMOS CARGANDO NUEVAS PIEZAS.",
     },
     intro: {
       tap: "TOCA PARA CONTINUAR",
@@ -211,6 +212,7 @@ const RAW = {
       talla: "SIZE",
       maxPrice: "MAX PRICE: ${n}",
       fullCatalog: "FULL CATALOG",
+      empty: "COMING SOON. NEW DROPS ON THE WAY.",
     },
     intro: {
       tap: "TAP TO CONTINUE",
