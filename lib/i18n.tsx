@@ -27,6 +27,8 @@ const RAW = {
     },
     nav: {
       gorras: "GORRAS",
+      relojes: "RELOJES",
+      gafas: "GAFAS",
       ropa: "ROPA",
       colecciones: "COLECCIONES",
       destacados: "DESTACADOS",
@@ -45,6 +47,8 @@ const RAW = {
     footer: {
       store: "TIENDA",
       gorras: "Gorras",
+      relojes: "Relojes",
+      gafas: "Gafas",
       ropa: "Ropa",
       colecciones: "Colecciones",
       help: "AYUDA",
@@ -136,6 +140,8 @@ const RAW = {
     },
     nav: {
       gorras: "CAPS",
+      relojes: "WATCHES",
+      gafas: "SUNGLASSES",
       ropa: "APPAREL",
       colecciones: "COLLECTIONS",
       destacados: "FEATURED",
@@ -154,6 +160,8 @@ const RAW = {
     footer: {
       store: "SHOP",
       gorras: "Caps",
+      relojes: "Watches",
+      gafas: "Sunglasses",
       ropa: "Apparel",
       colecciones: "Collections",
       help: "HELP",

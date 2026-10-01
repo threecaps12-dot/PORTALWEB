@@ -7,6 +7,7 @@ import {
   buildOrderMessage,
   generateOrderNumber,
   CartLine,
+  WHATSAPP_ENABLED,
 } from "@/lib/whatsapp";
 import { cartTotal } from "@/lib/cartLogic";
 import { useLanguage } from "@/lib/i18n";
@@ -76,6 +77,7 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
       </p>
 
       <div className="flex flex-col gap-3">
+        {WHATSAPP_ENABLED && (
         <a
           href={buildWhatsAppLink(items, orderNumber)}
           target="_blank"
@@ -85,11 +87,16 @@ export default function CheckoutHandoff({ items }: { items: CartLine[] }) {
           <WhatsAppIcon />
           {t("checkout.whatsapp")}
         </a>
+        )}
 
         <a
           href={buildInstagramLink()}
           onClick={handleInstagramClick}
-          className="flex items-center justify-center gap-2 border border-obsidian dark:border-cream text-obsidian dark:text-cream text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream dark:hover:bg-cream dark:hover:text-obsidian transition-colors"
+          className={
+            WHATSAPP_ENABLED
+              ? "flex items-center justify-center gap-2 border border-obsidian dark:border-cream text-obsidian dark:text-cream text-sm tracking-wide py-3.5 hover:bg-obsidian hover:text-cream dark:hover:bg-cream dark:hover:text-obsidian transition-colors"
+              : "flex items-center justify-center gap-2 bg-crimson hover:bg-crimson-hover text-cream text-sm tracking-wide py-3.5 transition-colors"
+          }
         >
           <InstagramIcon />
           {t("checkout.instagram")}

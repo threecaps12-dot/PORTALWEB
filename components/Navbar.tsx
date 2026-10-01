@@ -24,6 +24,9 @@ export default function Navbar() {
 
   const categories = [
     { label: t("nav.gorras"), href: "/catalogo?cat=gorras" },
+    { label: "NEW ERA", href: "/catalogo?cat=new-era" },
+    { label: t("nav.relojes"), href: "/catalogo?cat=relojes" },
+    { label: t("nav.gafas"), href: "/catalogo?cat=gafas" },
     { label: t("nav.ropa"), href: "/catalogo?cat=ropa" },
     { label: t("nav.colecciones"), href: "/catalogo" },
     { label: t("nav.destacados"), href: "/catalogo?cat=destacados" },
@@ -43,7 +46,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 font-display text-lg tracking-wide">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7 font-display text-lg tracking-wide">
           {categories.map((cat) => (
             <Link
               key={cat.href}

@@ -2,6 +2,9 @@ import { lineTotal, cartTotal } from "@/lib/cartLogic";
 
 // Número de WhatsApp del negocio (formato internacional, sin '+' ni espacios)
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "1XXXXXXXXXX";
+// Mientras no haya un número real, se oculta WhatsApp en todo el sitio y se finaliza solo por Instagram.
+const PLACEHOLDER_NUMBERS = ["1XXXXXXXXXX", "13055551234"];
+export const WHATSAPP_ENABLED = /^\d{8,15}$/.test(WHATSAPP_NUMBER) && !PLACEHOLDER_NUMBERS.includes(WHATSAPP_NUMBER);
 export const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || "tu_marca";
 
 export type CartLine = {

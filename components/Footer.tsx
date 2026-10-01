@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { INSTAGRAM_HANDLE, WHATSAPP_NUMBER } from "@/lib/whatsapp";
+import { INSTAGRAM_HANDLE, WHATSAPP_NUMBER, WHATSAPP_ENABLED } from "@/lib/whatsapp";
 import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
@@ -26,8 +26,11 @@ export default function Footer() {
         <div>
           <h4 className="text-cream mb-3 tracking-wide">{t("footer.store")}</h4>
           <ul className="space-y-2">
-            <li>{t("footer.gorras")}</li>
-            <li>{t("footer.ropa")}</li>
+            <li><Link href="/catalogo?cat=gorras" className="hover:text-crimson transition-colors">{t("footer.gorras")}</Link></li>
+            <li><Link href="/catalogo?cat=new-era" className="hover:text-crimson transition-colors">New Era</Link></li>
+            <li><Link href="/catalogo?cat=relojes" className="hover:text-crimson transition-colors">{t("footer.relojes")}</Link></li>
+            <li><Link href="/catalogo?cat=gafas" className="hover:text-crimson transition-colors">{t("footer.gafas")}</Link></li>
+            <li><Link href="/catalogo?cat=ropa" className="hover:text-crimson transition-colors">{t("footer.ropa")}</Link></li>
             <li>{t("footer.colecciones")}</li>
           </ul>
         </div>
@@ -52,6 +55,7 @@ export default function Footer() {
                 Instagram
               </a>
             </li>
+            {WHATSAPP_ENABLED && (
             <li>
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}`}
@@ -62,6 +66,7 @@ export default function Footer() {
                 WhatsApp
               </a>
             </li>
+            )}
           </ul>
         </div>
       </div>
