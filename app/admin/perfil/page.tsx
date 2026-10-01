@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import ChangePasswordForm from "@/components/admin/ChangePasswordForm";
+import CollectionsManager from "@/components/admin/CollectionsManager";
 
 export default async function PerfilPage() {
   const supabase = await createClient();
@@ -7,11 +8,10 @@ export default async function PerfilPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: adminRow } = await supabase
-    .from("admin_users")
-    .select("role")
-    .eq("id", user?.id ?? "")
-    .maybeSingle();
+  const [{ data: adminRow }, { data: collections }] = await Promise.all([
+    supabase.from("admin_users").select("role").eq("id", user?.id ?? "").maybeSingle(),
+    supabase.from("collections").select("id, name, slug").order("name"),
+  ]);
 
   return (
     <div>
@@ -27,6 +27,8 @@ export default async function PerfilPage() {
           {adminRow?.role ?? "admin"}
         </span>
       </div>
+
+      <CollectionsManager collections={collections ?? []} />
 
       <ChangePasswordForm />
     </div>
