@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 // real se guardan en Supabase (lesson_progress) con el usuario autenticado.
 const PROGRESS_KEY = "three-caps-academia-progress";
 const SESSION_KEY = "three-caps-academia-session";
+const SESSION_EVENT = "three-caps-academia-session-change";
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -48,18 +49,24 @@ export function useProgress() {
 export function useDemoSession() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
+  // Varios componentes usan este hook (header, páginas): se avisan entre sí con un evento
   useEffect(() => {
-    setLoggedIn(read(SESSION_KEY, false));
+    const sync = () => setLoggedIn(read(SESSION_KEY, false));
+    sync();
+    window.addEventListener(SESSION_EVENT, sync);
+    return () => window.removeEventListener(SESSION_EVENT, sync);
   }, []);
 
   const login = useCallback(() => {
     write(SESSION_KEY, true);
     setLoggedIn(true);
+    window.dispatchEvent(new Event(SESSION_EVENT));
   }, []);
 
   const logout = useCallback(() => {
     write(SESSION_KEY, false);
     setLoggedIn(false);
+    window.dispatchEvent(new Event(SESSION_EVENT));
   }, []);
 
   return { loggedIn, login, logout };
