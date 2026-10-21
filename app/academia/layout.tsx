@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import AcademiaHeader from "@/components/academia/AcademiaHeader";
+import { Inter, Instrument_Serif } from "next/font/google";
+import { BRAND } from "@/lib/academiaDemo";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-acad", display: "swap" });
+const serif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-acad-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Academia Three Caps | Cursos de dropshipping",
-  description: "Cursos y mentorías de dropshipping. Entra con tu usuario y aprende a tu ritmo.",
+  title: `${BRAND.name} ${BRAND.suffix} | ${BRAND.tagline}`,
+  description: "Programas y mentorías de ecommerce. Entra con tu usuario y aprende a tu ritmo.",
 };
 
 export default function AcademiaLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-obsidian text-cream">
-      <AcademiaHeader />
+    <div
+      className={`${inter.variable} ${serif.variable} font-acad min-h-screen bg-acad-bg text-white/90 antialiased selection:bg-acad-gold selection:text-black`}
+    >
+      <div className="relative z-50 text-center text-[11px] tracking-[0.25em] text-acad-gold/80 py-1.5 border-b border-white/5 bg-black">
+        VISTA PREVIA · CONTENIDO DE EJEMPLO
+      </div>
       {children}
-      <footer className="border-t border-cream/10 mt-20 py-8 text-center text-cream/40 text-xs tracking-widest">
-        ACADEMIA THREE CAPS · DEMO
-      </footer>
     </div>
   );
 }

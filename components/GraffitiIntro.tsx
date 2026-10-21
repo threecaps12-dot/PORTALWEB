@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/i18n";
 
 type Phase = "spraying" | "revealed" | "closing";
@@ -35,8 +36,11 @@ export default function GraffitiIntro() {
   const [show, setShow] = useState(false);
   const [phase, setPhase] = useState<Phase>("spraying");
   const [embers] = useState(() => buildEmbers(20));
+  // La academia es una marca aparte: no lleva la intro de Three Caps
+  const isAcademia = usePathname()?.startsWith("/academia") ?? false;
 
   useEffect(() => {
+    if (isAcademia) return;
     setShow(true);
     setPhase("spraying");
     const toRevealed = setTimeout(() => setPhase("revealed"), 1150);
@@ -54,7 +58,7 @@ export default function GraffitiIntro() {
     setTimeout(() => setShow(false), 700);
   }
 
-  if (!show) return null;
+  if (!show || isAcademia) return null;
 
   const closing = phase === "closing";
   const spraying = phase === "spraying";

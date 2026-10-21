@@ -18,10 +18,21 @@ module.exports = {
         },
         gold: "#D4AF37",
         cream: "#FAF8F5",
+        // Academia (marca aparte del dueño)
+        acad: {
+          bg: "#07070A",
+          panel: "#0E0E12",
+          raised: "#15151B",
+          gold: "#C9A96E",
+          champagne: "#E9D9B4",
+          muted: "#8B8A93",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
+        acad: ["var(--font-acad)", "system-ui", "sans-serif"],
+        acadserif: ["var(--font-acad-serif)", "Georgia", "serif"],
       },
       keyframes: {
         "draw": {

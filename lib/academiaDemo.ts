@@ -1,6 +1,13 @@
 // Datos de ejemplo para la demo de la Academia. En la versión real esto
 // sale de Supabase (courses, modules, lessons, enrollments).
 
+// Marca provisional de la academia: se cambia aquí y se actualiza en todas las pantallas.
+export const BRAND = {
+  name: "Escala",
+  suffix: "Academy",
+  tagline: "Academia privada de ecommerce",
+};
+
 export type Lesson = {
   id: string;
   title: string;
@@ -17,12 +24,14 @@ export type Module = {
 
 export type Course = {
   slug: string;
+  number: string;
   title: string;
   tagline: string;
   level: "Principiante" | "Intermedio" | "Avanzado";
-  kind: "Curso" | "Mentoría";
+  kind: "Programa" | "Mentoría";
   price: number;
-  accent: "crimson" | "gold" | "ember";
+  hours: string;
+  theme: "gold" | "ivory" | "bronze";
   modules: Module[];
 };
 
@@ -32,12 +41,14 @@ export const DEMO_VIDEO_URL =
 export const COURSES: Course[] = [
   {
     slug: "dropshipping-desde-cero",
+    number: "01",
     title: "Dropshipping desde cero",
-    tagline: "Monta tu primera tienda y haz tu primera venta en 30 días.",
+    tagline: "Monta tu primera tienda y consigue tu primera venta en 30 días.",
     level: "Principiante",
-    kind: "Curso",
+    kind: "Programa",
     price: 97,
-    accent: "crimson",
+    hours: "6 h 30 min",
+    theme: "gold",
     modules: [
       {
         id: "m1",
@@ -48,7 +59,7 @@ export const COURSES: Course[] = [
             title: "Qué es el dropshipping de verdad",
             duration: "12:40",
             description:
-              "Cómo funciona el modelo, dónde está el dinero y los errores que hacen que el 90% abandone en el primer mes.",
+              "Cómo funciona el modelo, dónde está el dinero y los errores que hacen que la mayoría abandone en el primer mes.",
             materials: [{ label: "Guía rápida del modelo", kind: "pdf" }],
           },
           {
@@ -68,7 +79,7 @@ export const COURSES: Course[] = [
             id: "l3",
             title: "Las 5 señales de un producto ganador",
             duration: "18:02",
-            description: "El filtro que uso para decidir si un producto vale la pena antes de gastar un dólar.",
+            description: "El filtro para decidir si un producto vale la pena antes de gastar un dólar.",
           },
           {
             id: "l4",
@@ -81,7 +92,7 @@ export const COURSES: Course[] = [
             id: "l5",
             title: "Proveedores confiables y tiempos de envío",
             duration: "16:48",
-            description: "Cómo negociar, pedir muestras y evitar proveedores que te arruinan las reseñas.",
+            description: "Cómo negociar, pedir muestras y evitar proveedores que arruinan tus reseñas.",
           },
         ],
       },
@@ -108,12 +119,14 @@ export const COURSES: Course[] = [
   },
   {
     slug: "anuncios-que-venden",
+    number: "02",
     title: "Anuncios que venden",
-    tagline: "Meta y TikTok Ads para escalar tu tienda sin quemar plata.",
+    tagline: "Meta y TikTok Ads para escalar tu tienda sin quemar presupuesto.",
     level: "Intermedio",
-    kind: "Curso",
+    kind: "Programa",
     price: 147,
-    accent: "gold",
+    hours: "4 h 45 min",
+    theme: "ivory",
     modules: [
       {
         id: "m1",
@@ -127,7 +140,7 @@ export const COURSES: Course[] = [
           },
           {
             id: "l2",
-            title: "Creativos que paran el scroll",
+            title: "Creativos que detienen el scroll",
             duration: "17:45",
             description: "Ganchos de 3 segundos, formatos UGC y cómo grabar con tu celular.",
             materials: [{ label: "50 ganchos probados", kind: "pdf" }],
@@ -142,7 +155,7 @@ export const COURSES: Course[] = [
             id: "l3",
             title: "Leer métricas sin enredarte",
             duration: "13:10",
-            description: "CPA, ROAS y CTR explicados con números reales de mis tiendas.",
+            description: "CPA, ROAS y CTR explicados con números reales.",
           },
           {
             id: "l4",
@@ -155,17 +168,19 @@ export const COURSES: Course[] = [
     ],
   },
   {
-    slug: "mentoria-tienda-pro",
-    title: "Mentoría Tienda Pro",
-    tagline: "Acompañamiento 1 a 1 durante 8 semanas para llevar tu tienda a 5 cifras.",
+    slug: "mentoria-privada",
+    number: "03",
+    title: "Mentoría privada",
+    tagline: "Ocho semanas de acompañamiento uno a uno para llevar tu tienda a cinco cifras.",
     level: "Avanzado",
     kind: "Mentoría",
     price: 497,
-    accent: "ember",
+    hours: "8 semanas",
+    theme: "bronze",
     modules: [
       {
         id: "m1",
-        title: "Semana 1 a 4",
+        title: "Semanas 1 a 4",
         lessons: [
           {
             id: "l1",
@@ -183,7 +198,7 @@ export const COURSES: Course[] = [
       },
       {
         id: "m2",
-        title: "Semana 5 a 8",
+        title: "Semanas 5 a 8",
         lessons: [
           {
             id: "l3",
@@ -203,9 +218,10 @@ export const COURSES: Course[] = [
   },
 ];
 
-// Alumno de la demo: tiene 2 cursos, la mentoría aparece bloqueada.
+// Alumno de la demo: tiene 2 programas, la mentoría aparece bloqueada.
 export const DEMO_STUDENT = {
   name: "Andrés",
+  fullName: "Andrés Gómez",
   email: "alumno@demo.com",
   enrolled: ["dropshipping-desde-cero", "anuncios-que-venden"],
 };
@@ -217,13 +233,50 @@ export type DemoStudent = {
   courses: string[];
   expires: string | null;
   progress: number;
+  joined: string;
 };
 
 export const DEMO_STUDENTS: DemoStudent[] = [
-  { id: "s1", name: "Andrés Gómez", email: "alumno@demo.com", courses: ["dropshipping-desde-cero", "anuncios-que-venden"], expires: null, progress: 28 },
-  { id: "s2", name: "Valentina Ríos", email: "vale.rios@gmail.com", courses: ["dropshipping-desde-cero"], expires: null, progress: 71 },
-  { id: "s3", name: "Kevin Martínez", email: "kevinm@hotmail.com", courses: ["mentoria-tienda-pro", "dropshipping-desde-cero"], expires: "2026-12-20", progress: 45 },
-  { id: "s4", name: "Laura Pineda", email: "laupineda@gmail.com", courses: ["anuncios-que-venden"], expires: null, progress: 12 },
+  { id: "s1", name: "Andrés Gómez", email: "alumno@demo.com", courses: ["dropshipping-desde-cero", "anuncios-que-venden"], expires: null, progress: 28, joined: "18 oct" },
+  { id: "s2", name: "Valentina Ríos", email: "vale.rios@gmail.com", courses: ["dropshipping-desde-cero"], expires: null, progress: 71, joined: "12 oct" },
+  { id: "s3", name: "Kevin Martínez", email: "kevinm@hotmail.com", courses: ["mentoria-privada", "dropshipping-desde-cero"], expires: "2026-12-20", progress: 45, joined: "02 oct" },
+  { id: "s4", name: "Laura Pineda", email: "laupineda@gmail.com", courses: ["anuncios-que-venden"], expires: null, progress: 12, joined: "27 sep" },
+  { id: "s5", name: "Daniel Herrera", email: "dherrera@gmail.com", courses: ["dropshipping-desde-cero", "anuncios-que-venden"], expires: null, progress: 93, joined: "15 sep" },
+];
+
+// Ventas de ejemplo por mes para el gráfico del panel (USD)
+export const DEMO_MONTHLY_SALES = [
+  { month: "May", value: 1840 },
+  { month: "Jun", value: 2610 },
+  { month: "Jul", value: 3120 },
+  { month: "Ago", value: 2890 },
+  { month: "Sep", value: 4370 },
+  { month: "Oct", value: 5280 },
+];
+
+export const TESTIMONIALS = [
+  {
+    quote: "En la semana tres hice mi primera venta. Lo que más me sirvió fue el filtro de productos, me ahorró meses de prueba y error.",
+    name: "Valentina R.",
+    role: "Alumna · Programa 01",
+  },
+  {
+    quote: "Pasé de gastar a ciegas en anuncios a saber exactamente qué apagar y qué escalar. Mi costo por venta bajó a la mitad.",
+    name: "Daniel H.",
+    role: "Alumno · Programa 02",
+  },
+  {
+    quote: "La mentoría me ordenó el negocio. Hoy tengo proveedores fijos, procesos claros y por fin tiempo libre.",
+    name: "Kevin M.",
+    role: "Mentoría privada",
+  },
+];
+
+export const FAQ = [
+  { q: "¿Necesito experiencia previa?", a: "No. El Programa 01 empieza desde cero y te lleva paso a paso hasta tu primera venta." },
+  { q: "¿Por cuánto tiempo tengo acceso?", a: "Los programas grabados son de acceso de por vida, incluidas las actualizaciones. La mentoría dura ocho semanas." },
+  { q: "¿Puedo verlo desde el celular?", a: "Sí. La plataforma funciona en celular, tablet y computador, y guarda tu progreso automáticamente." },
+  { q: "¿Cómo recibo mi acceso?", a: "Al confirmar tu pago te llega un correo con tu usuario y contraseña para entrar a la plataforma." },
 ];
 
 export function getCourse(slug: string) {
@@ -233,9 +286,3 @@ export function getCourse(slug: string) {
 export function allLessons(course: Course) {
   return course.modules.flatMap((m) => m.lessons);
 }
-
-export const ACCENT_GRADIENT: Record<Course["accent"], string> = {
-  crimson: "from-crimson via-[#4a0610] to-obsidian",
-  gold: "from-gold/80 via-[#5c4a12] to-obsidian",
-  ember: "from-[#FF6B35] via-crimson to-obsidian",
-};
