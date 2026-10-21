@@ -53,7 +53,7 @@ export default function PanelDemo() {
     <div className="min-h-[calc(100vh-29px)] lg:grid lg:grid-cols-[250px_1fr]">
       <aside className="hidden lg:flex flex-col border-r border-white/5 bg-acad-panel/60 px-5 py-6 sticky top-0 h-[calc(100vh-29px)]">
         <Logo size="sm" />
-        <p className="mt-8 mb-3 px-3 text-[10px] tracking-[0.3em] uppercase text-acad-muted">Administración</p>
+        <p className="mt-8 mb-3 px-3 text-[10px] tracking-[0.12em] uppercase text-acad-muted">Administración</p>
         <nav className="space-y-1">
           {NAV.map((item) => (
             <button
@@ -105,7 +105,7 @@ export default function PanelDemo() {
         <main className="px-5 md:px-10 py-10 max-w-6xl">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="font-acadserif text-5xl text-white">{TITLES[tab][0]}</h1>
+              <h1 className="font-acadserif text-4xl text-white">{TITLES[tab][0]}</h1>
               <p className="mt-2 text-acad-muted">{TITLES[tab][1]}</p>
             </div>
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1.5 text-xs text-emerald-300/90">
@@ -346,7 +346,7 @@ function ProgramsTab({
                 <CourseCover course={c} thumb />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-acad-gold">
+                <p className="text-[10px] tracking-[0.12em] uppercase text-acad-gold">
                   {c.kind} {c.number}
                 </p>
                 <h3 className="mt-1 font-acadserif text-3xl text-white truncate">{c.title}</h3>
@@ -376,7 +376,7 @@ function ProgramsTab({
                 {c.modules.map((m, mi) => (
                   <div key={m.id}>
                     <p className="flex items-center gap-3 text-sm text-white">
-                      <span className="font-acadserif italic text-xl text-acad-gold/70">{mi + 1}</span>
+                      <span className="text-xs text-acad-gold tabular-nums">0{mi + 1}</span>
                       {m.title}
                     </p>
                     {m.lessons.length === 0 ? (

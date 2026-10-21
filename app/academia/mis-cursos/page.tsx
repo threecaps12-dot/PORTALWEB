@@ -30,8 +30,8 @@ export default function MisCursos() {
     <StudentShell>
       <main className="px-5 md:px-10 py-10 max-w-6xl">
         <Eyebrow>{greeting()}</Eyebrow>
-        <h1 className="mt-4 font-acadserif text-5xl md:text-6xl text-white">
-          Hola, <em className="text-acad-champagne">{DEMO_STUDENT.name}.</em>
+        <h1 className="mt-3 font-acadserif text-4xl md:text-5xl text-white">
+          Hola, {DEMO_STUDENT.name}
         </h1>
         <p className="mt-3 text-acad-muted">Sigue donde lo dejaste. Una lección al día cambia el resultado.</p>
 
@@ -41,8 +41,8 @@ export default function MisCursos() {
             <CourseCover course={current.course} />
           </div>
           <div className="p-8 flex flex-col justify-center">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-acad-gold">Continuar viendo</p>
-            <h2 className="mt-3 font-acadserif text-3xl md:text-4xl text-white leading-tight">
+            <p className="text-[11px] tracking-[0.12em] uppercase text-acad-gold">Continuar viendo</p>
+            <h2 className="mt-3 font-acadserif text-2xl md:text-3xl text-white leading-tight">
               {current.next?.title ?? "Programa completado"}
             </h2>
             <p className="mt-2 text-sm text-acad-muted">

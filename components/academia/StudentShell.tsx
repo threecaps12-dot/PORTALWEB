@@ -58,7 +58,7 @@ export default function StudentShell({ children }: { children: React.ReactNode }
         </nav>
 
         <div className="mt-auto rounded-xl border border-acad-gold/25 bg-gradient-to-b from-acad-gold/10 to-transparent p-4">
-          <p className="text-[10px] tracking-[0.25em] uppercase text-acad-gold">Mentoría privada</p>
+          <p className="text-[10px] tracking-[0.12em] uppercase text-acad-gold">Mentoría privada</p>
           <p className="mt-2 text-sm text-white/80 leading-snug">Acompañamiento uno a uno durante 8 semanas.</p>
           <p className="mt-3 text-xs text-acad-champagne">Desbloquear →</p>
         </div>

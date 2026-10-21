@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Archivo } from "next/font/google";
 import { BRAND } from "@/lib/academiaDemo";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-acad", display: "swap" });
-const serif = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-acad-serif",
-  display: "swap",
-});
+// Una sola familia: Archivo normal para texto y expandida para titulares (ver .font-acadserif en globals.css)
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-acad", display: "swap" });
 
 export const metadata: Metadata = {
   title: `${BRAND.name} ${BRAND.suffix} | ${BRAND.tagline}`,
@@ -19,9 +13,9 @@ export const metadata: Metadata = {
 export default function AcademiaLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${inter.variable} ${serif.variable} font-acad min-h-screen bg-acad-bg text-white/90 antialiased selection:bg-acad-gold selection:text-black`}
+      className={`${archivo.variable} font-acad min-h-screen bg-acad-bg text-white/90 antialiased selection:bg-acad-gold selection:text-black`}
     >
-      <div className="relative z-50 text-center text-[11px] tracking-[0.25em] text-acad-gold/80 py-1.5 border-b border-white/5 bg-black">
+      <div className="relative z-50 text-center text-[11px] tracking-[0.12em] text-acad-gold/80 py-1.5 border-b border-white/5 bg-black">
         VISTA PREVIA · CONTENIDO DE EJEMPLO
       </div>
       {children}

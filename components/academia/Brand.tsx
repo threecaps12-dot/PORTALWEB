@@ -14,8 +14,8 @@ export function Logo({ href = "/academia", size = "md" }: { href?: string; size?
         </svg>
       </span>
       <span className="leading-none">
-        <span className={`font-acadserif text-white ${size === "sm" ? "text-xl" : "text-2xl"}`}>{BRAND.name}</span>
-        <span className="ml-1.5 text-[10px] tracking-[0.3em] text-acad-muted uppercase">{BRAND.suffix}</span>
+        <span className={`font-acadserif uppercase text-white ${size === "sm" ? "text-base" : "text-lg"}`}>{BRAND.name}</span>
+        <span className="ml-1.5 text-[10px] tracking-[0.12em] text-acad-muted uppercase">{BRAND.suffix}</span>
       </span>
     </Link>
   );
@@ -23,8 +23,7 @@ export function Logo({ href = "/academia", size = "md" }: { href?: string; size?
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-acad-gold">
-      <span className="h-px w-8 bg-acad-gold/60" />
+    <p className="text-xs font-medium tracking-[0.12em] uppercase text-acad-gold">
       {children}
     </p>
   );
@@ -51,7 +50,7 @@ export function CourseCover({
   if (thumb) {
     return (
       <div className="relative aspect-[16/10] overflow-hidden acad-grain grid place-items-center" style={{ background: THEMES[course.theme] }}>
-        <span className="font-acadserif italic text-5xl text-acad-champagne/70">{course.number}</span>
+        <span className="font-acadserif text-4xl text-white/80">{course.number}</span>
       </div>
     );
   }
@@ -59,17 +58,14 @@ export function CourseCover({
     <div className="relative aspect-[16/10] overflow-hidden acad-grain" style={{ background: THEMES[course.theme] }}>
       <div className="absolute inset-3 border border-white/10" />
       <div className="absolute inset-0 p-6 flex flex-col justify-between">
-        <div className="flex items-center justify-between text-[10px] tracking-[0.3em] uppercase text-white/60">
+        <div className="flex items-center justify-between text-[10px] tracking-[0.12em] uppercase text-white/60">
           <span>
             {course.kind} {course.number}
           </span>
           <span>{course.level}</span>
         </div>
         <div>
-          <span className="block font-acadserif italic text-acad-champagne/30 text-7xl leading-none -mb-3">
-            {course.number}
-          </span>
-          <h3 className={`font-acadserif text-white leading-[0.95] ${compact ? "text-3xl" : "text-4xl"}`}>
+          <h3 className={`font-acadserif uppercase text-white leading-[0.95] ${compact ? "text-xl" : "text-[1.65rem]"}`}>
             {course.title}
           </h3>
         </div>
@@ -83,7 +79,7 @@ export function CourseCover({
                 <path d="M8 11V7a4 4 0 018 0v4" />
               </svg>
             </span>
-            <p className="mt-3 text-[11px] tracking-[0.3em] uppercase text-acad-champagne">No incluido en tu plan</p>
+            <p className="mt-3 text-[11px] tracking-[0.12em] uppercase text-acad-champagne">No incluido en tu plan</p>
           </div>
         </div>
       )}

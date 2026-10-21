@@ -32,7 +32,7 @@ module.exports = {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
         acad: ["var(--font-acad)", "system-ui", "sans-serif"],
-        acadserif: ["var(--font-acad-serif)", "Georgia", "serif"],
+        acadserif: ["var(--font-acad)", "system-ui", "sans-serif"],
       },
       keyframes: {
         "draw": {

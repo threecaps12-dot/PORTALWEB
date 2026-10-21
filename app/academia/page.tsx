@@ -10,10 +10,10 @@ const STATS = [
 ];
 
 const PILLARS = [
-  { n: "I", title: "Producto", text: "Un método para encontrar y validar productos antes de invertir." },
-  { n: "II", title: "Tienda", text: "Una tienda que inspira confianza y convierte visitas en ventas." },
-  { n: "III", title: "Tráfico", text: "Anuncios rentables en Meta y TikTok, sin quemar presupuesto." },
-  { n: "IV", title: "Escala", text: "Procesos, proveedores y números para crecer con orden." },
+  { n: "01", title: "Producto", text: "Un método para encontrar y validar productos antes de invertir." },
+  { n: "02", title: "Tienda", text: "Una tienda que inspira confianza y convierte visitas en ventas." },
+  { n: "03", title: "Tráfico", text: "Anuncios rentables en Meta y TikTok, sin quemar presupuesto." },
+  { n: "04", title: "Escala", text: "Procesos, proveedores y números para crecer con orden." },
 ];
 
 const PLANS = [
@@ -75,7 +75,7 @@ function PlatformPreview() {
                 <div className="h-full w-[38%] bg-acad-gold" />
               </div>
             </div>
-            <p className="mt-3 text-[10px] tracking-[0.25em] uppercase text-acad-gold">Lección 3 de 7</p>
+            <p className="mt-3 text-[10px] tracking-[0.12em] uppercase text-acad-gold">Lección 3 de 7</p>
             <p className="font-acadserif text-lg leading-tight text-white mt-1">Las 5 señales de un producto ganador</p>
           </div>
           <div className="p-3 space-y-1">
@@ -138,12 +138,12 @@ export default function AcademiaHome() {
         <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-28 pb-24 grid xl:grid-cols-[1.05fr_1fr] gap-16 items-center">
           <div>
             <Eyebrow>{BRAND.tagline}</Eyebrow>
-            <h1 className="mt-7 font-acadserif text-[3.4rem] sm:text-7xl lg:text-[5.4rem] leading-[0.95] tracking-tight text-white">
-              Construye un negocio online que <em className="acad-gold-text">trabaje para ti.</em>
+            <h1 className="mt-7 font-acadserif text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-white">
+              De cero a tu primera venta online en 30 días.
             </h1>
             <p className="mt-7 text-lg text-white/60 max-w-xl leading-relaxed">
-              El método completo para lanzar, vender y escalar tu tienda de ecommerce. Programas en video, plantillas
-              listas para usar y mentoría privada, en una sola plataforma.
+              Programas en video, plantillas listas para usar y mentoría directa con alguien que ya vende en Estados
+              Unidos. Sin humo, con números reales.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <a href="#planes" className={btnPrimary}>
@@ -168,7 +168,7 @@ export default function AcademiaHome() {
                 ))}
               </div>
               <p className="text-sm text-white/50">
-                <span className="text-acad-champagne">★★★★★</span> Más de 1.200 alumnos ya están dentro
+                Más de 1.200 alumnos ya están dentro
               </p>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function AcademiaHome() {
           {STATS.map((s, i) => (
             <div key={s.label} className={`py-10 text-center ${i > 0 ? "md:border-l border-white/5" : ""}`}>
               <p className="font-acadserif text-5xl text-white">{s.value}</p>
-              <p className="mt-2 text-xs tracking-[0.25em] uppercase text-acad-muted">{s.label}</p>
+              <p className="mt-2 text-xs tracking-[0.12em] uppercase text-acad-muted">{s.label}</p>
             </div>
           ))}
         </div>
@@ -194,9 +194,8 @@ export default function AcademiaHome() {
       <section id="programas" className="max-w-7xl mx-auto px-5 md:px-8 py-28 scroll-mt-16">
         <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
           <div>
-            <Eyebrow>Programas</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl md:text-6xl text-white leading-none">
-              Aprende en el orden <em className="text-acad-champagne">correcto.</em>
+                        <h2 className="mt-5 font-acadserif text-4xl md:text-5xl text-white leading-none">
+              Tres niveles. Un solo camino.
             </h2>
           </div>
           <p className="max-w-sm text-white/50">
@@ -232,10 +231,8 @@ export default function AcademiaHome() {
       <section id="metodo" className="relative border-t border-white/5 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-5 md:px-8 py-28 grid lg:grid-cols-[0.9fr_1.1fr] gap-16">
           <div>
-            <Eyebrow>El método</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl md:text-6xl text-white leading-none">
-              Cuatro pilares. <br />
-              <em className="text-acad-champagne">Cero improvisación.</em>
+                        <h2 className="mt-5 font-acadserif text-4xl md:text-5xl text-white leading-none">
+              Cómo funciona el método
             </h2>
             <p className="mt-6 text-white/55 max-w-md leading-relaxed">
               Nada de teoría suelta. Cada lección termina con una acción concreta para aplicar en tu tienda ese mismo día.
@@ -244,7 +241,7 @@ export default function AcademiaHome() {
           <div className="grid sm:grid-cols-2 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
             {PILLARS.map((p) => (
               <div key={p.n} className="bg-acad-bg p-8">
-                <span className="font-acadserif italic text-3xl text-acad-gold">{p.n}</span>
+                <span className="font-acadserif text-sm text-acad-gold">{p.n}</span>
                 <h3 className="mt-4 text-lg text-white">{p.title}</h3>
                 <p className="mt-2 text-sm text-white/50 leading-relaxed">{p.text}</p>
               </div>
@@ -263,7 +260,7 @@ export default function AcademiaHome() {
                   <circle cx="12" cy="8" r="4" />
                   <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
                 </svg>
-                <p className="mt-4 text-[11px] tracking-[0.3em] uppercase text-acad-muted">Tu foto aquí</p>
+                <p className="mt-4 text-[11px] tracking-[0.12em] uppercase text-acad-muted">Tu foto aquí</p>
               </div>
             </div>
             <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
@@ -272,15 +269,14 @@ export default function AcademiaHome() {
             </div>
           </div>
           <div>
-            <Eyebrow>Quién te enseña</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl md:text-6xl text-white leading-none">
-              Aprende de alguien que <em className="text-acad-champagne">ya lo hizo.</em>
+                        <h2 className="mt-5 font-acadserif text-4xl md:text-5xl text-white leading-none">
+              Quién está detrás
             </h2>
             <p className="mt-6 text-white/60 leading-relaxed">
               Empecé desde cero, con poco capital y muchos errores. Hoy tengo una marca propia vendiendo en Estados
               Unidos. En esta academia te enseño exactamente lo que me funcionó, sin rellenos y con números reales.
             </p>
-            <blockquote className="mt-10 border-l border-acad-gold/50 pl-6 font-acadserif italic text-2xl text-white/80 leading-snug">
+            <blockquote className="mt-10 border-l border-acad-gold/50 pl-6 text-xl text-white/80 leading-snug">
               “No vendo motivación. Te doy un sistema y te acompaño a ejecutarlo.”
             </blockquote>
           </div>
@@ -291,14 +287,12 @@ export default function AcademiaHome() {
       <section className="border-t border-white/5 bg-acad-panel/40">
         <div className="max-w-7xl mx-auto px-5 md:px-8 py-28">
           <div className="text-center">
-            <Eyebrow>Resultados</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl md:text-6xl text-white">Lo que dicen los alumnos</h2>
+                        <h2 className="mt-5 font-acadserif text-4xl md:text-5xl text-white">Alumnos</h2>
           </div>
           <div className="mt-16 grid md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
               <figure key={t.name} className="rounded-2xl border border-white/10 bg-acad-bg p-8 flex flex-col">
-                <span className="text-acad-champagne text-sm tracking-widest">★★★★★</span>
-                <blockquote className="mt-5 font-acadserif text-xl text-white/85 leading-snug flex-1">“{t.quote}”</blockquote>
+                                <blockquote className="mt-5 mt-0 text-lg text-white/80 leading-relaxed flex-1">“{t.quote}”</blockquote>
                 <figcaption className="mt-8 pt-5 border-t border-white/5">
                   <p className="text-white text-sm">{t.name}</p>
                   <p className="text-acad-muted text-xs mt-0.5">{t.role}</p>
@@ -313,8 +307,7 @@ export default function AcademiaHome() {
       <section id="planes" className="border-t border-white/5 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-5 md:px-8 py-28">
           <div className="text-center">
-            <Eyebrow>Planes</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl md:text-6xl text-white">Elige cómo quieres empezar</h2>
+                        <h2 className="mt-5 font-acadserif text-4xl md:text-5xl text-white">Planes</h2>
             <p className="mt-4 text-white/50">Pago único. Sin mensualidades.</p>
           </div>
           <div className="mt-16 grid md:grid-cols-3 gap-6 items-stretch">
@@ -362,8 +355,7 @@ export default function AcademiaHome() {
       <section id="faq" className="border-t border-white/5 scroll-mt-16">
         <div className="max-w-3xl mx-auto px-5 md:px-8 py-28">
           <div className="text-center">
-            <Eyebrow>Preguntas</Eyebrow>
-            <h2 className="mt-5 font-acadserif text-5xl text-white">Preguntas frecuentes</h2>
+                        <h2 className="mt-5 font-acadserif text-5xl text-white">Preguntas frecuentes</h2>
           </div>
           <div className="mt-14 divide-y divide-white/10 border-y border-white/10">
             {FAQ.map((f) => (
@@ -384,7 +376,7 @@ export default function AcademiaHome() {
         <div className="absolute inset-0 bg-[radial-gradient(50%_80%_at_50%_100%,rgba(201,169,110,0.2),transparent_70%)]" />
         <div className="relative max-w-4xl mx-auto px-5 md:px-8 py-32 text-center">
           <h2 className="font-acadserif text-5xl md:text-7xl text-white leading-[0.95]">
-            Tu próxima venta empieza <em className="acad-gold-text">hoy.</em>
+            Empieza hoy.
           </h2>
           <div className="mt-10 flex justify-center gap-3 flex-wrap">
             <a href="#planes" className={btnPrimary}>

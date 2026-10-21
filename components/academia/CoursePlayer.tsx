@@ -110,7 +110,7 @@ export default function CoursePlayer({ course }: { course: Course }) {
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </span>
-                  <span className="font-acadserif text-3xl md:text-5xl text-white text-center leading-tight max-w-2xl">
+                  <span className="font-acadserif text-2xl md:text-4xl text-white text-center leading-tight max-w-2xl">
                     {lesson.title}
                   </span>
                 </div>
@@ -124,10 +124,10 @@ export default function CoursePlayer({ course }: { course: Course }) {
 
           <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
             <div className="min-w-0">
-              <p className="text-[11px] tracking-[0.3em] uppercase text-acad-gold">
+              <p className="text-[11px] tracking-[0.12em] uppercase text-acad-gold">
                 Lección {index + 1} de {lessons.length}
               </p>
-              <h1 className="mt-2 font-acadserif text-4xl md:text-5xl text-white leading-tight">{lesson.title}</h1>
+              <h1 className="mt-2 font-acadserif text-3xl md:text-4xl text-white leading-tight">{lesson.title}</h1>
             </div>
             <div className="flex flex-wrap gap-3">
               <button
@@ -240,7 +240,7 @@ export default function CoursePlayer({ course }: { course: Course }) {
 
         <aside className="lg:border-l border-t lg:border-t-0 border-white/5 bg-acad-panel/40 lg:sticky lg:top-16 lg:h-[calc(100vh-64px)] overflow-y-auto">
           <div className="p-6 border-b border-white/5">
-            <p className="text-[11px] tracking-[0.3em] uppercase text-acad-gold">Contenido del programa</p>
+            <p className="text-[11px] tracking-[0.12em] uppercase text-acad-gold">Contenido del programa</p>
             <p className="mt-2 text-sm text-acad-muted">
               {completed.length} de {lessons.length} lecciones completadas
             </p>
@@ -257,7 +257,7 @@ export default function CoursePlayer({ course }: { course: Course }) {
                   }
                   className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-white/[0.02] transition"
                 >
-                  <span className="font-acadserif italic text-2xl text-acad-gold/70 w-6">{mi + 1}</span>
+                  <span className="text-xs text-acad-gold w-6 tabular-nums">0{mi + 1}</span>
                   <span className="flex-1">
                     <span className="block text-sm text-white">{mod.title}</span>
                     <span className="block text-[11px] text-acad-muted mt-0.5">

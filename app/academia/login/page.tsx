@@ -22,8 +22,8 @@ export default function AcademiaLogin() {
       <section className="relative hidden lg:flex flex-col justify-between p-12 overflow-hidden acad-grain border-r border-white/5 bg-[radial-gradient(80%_60%_at_30%_30%,rgba(201,169,110,0.22),transparent_70%),linear-gradient(160deg,#15130f,#07070a)]">
         <Logo />
         <div>
-          <p className="font-acadserif text-6xl leading-[0.95] text-white max-w-lg">
-            “La disciplina de hoy es la <em className="acad-gold-text">libertad</em> de mañana.”
+          <p className="font-acadserif text-5xl leading-[1] text-white max-w-lg">
+            Tu progreso, tus programas y tu mentor en un solo lugar.
           </p>
           <p className="mt-6 text-sm text-acad-muted tracking-wide">{BRAND.tagline}</p>
         </div>
@@ -44,7 +44,7 @@ export default function AcademiaLogin() {
           <div className="lg:hidden mb-12">
             <Logo />
           </div>
-          <h1 className="font-acadserif text-5xl text-white">Bienvenido de nuevo</h1>
+          <h1 className="font-acadserif text-4xl text-white">Inicia sesión</h1>
           <p className="text-acad-muted mt-3 mb-10">Entra con el usuario que te llegó al correo.</p>
 
           <label className="block text-xs text-white/60 mb-2">Correo electrónico</label>
