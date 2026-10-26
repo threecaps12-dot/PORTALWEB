@@ -17,7 +17,7 @@ export default function Hero() {
           poster="/banners/hero-collection.jpg"
           className="w-full h-full object-cover opacity-80"
         >
-          <source src="/banners/hero-video.mp4" type="video/mp4" />
+          <source src="/banners/hero-video-v3.mp4" type="video/mp4" />
         </video>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
