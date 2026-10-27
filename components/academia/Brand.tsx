@@ -50,12 +50,18 @@ export function CourseCover({
   if (thumb) {
     return (
       <div className="relative aspect-[16/10] overflow-hidden acad-grain grid place-items-center" style={{ background: THEMES[course.theme] }}>
-        <span className="font-acadserif text-4xl text-white/80">{course.number}</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={course.image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+        <span className="relative font-acadserif text-4xl text-white/80">{course.number}</span>
       </div>
     );
   }
   return (
     <div className="relative aspect-[16/10] overflow-hidden acad-grain" style={{ background: THEMES[course.theme] }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={course.image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
       <div className="absolute inset-3 border border-white/10" />
       <div className="absolute inset-0 p-6 flex flex-col justify-between">
         <div className="flex items-center justify-between text-[10px] tracking-[0.12em] uppercase text-white/60">

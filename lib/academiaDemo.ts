@@ -13,6 +13,7 @@ export type Lesson = {
   title: string;
   duration: string;
   description: string;
+  image: string;
   materials?: { label: string; kind: "pdf" | "link" | "plantilla" }[];
 };
 
@@ -32,8 +33,12 @@ export type Course = {
   price: number;
   hours: string;
   theme: "gold" | "ivory" | "bronze";
+  image: string;
   modules: Module[];
 };
+
+// Fotos de stock (Unsplash) para que la demo no se vea vacía
+const photo = (id: string) => `https://images.unsplash.com/photo-${id}?w=1400&q=70&auto=format&fit=crop`;
 
 export const DEMO_VIDEO_URL =
   "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
@@ -49,6 +54,7 @@ export const COURSES: Course[] = [
     price: 97,
     hours: "6 h 30 min",
     theme: "gold",
+    image: photo("1607082348824-0a96f2a4b9da"),
     modules: [
       {
         id: "m1",
@@ -58,6 +64,7 @@ export const COURSES: Course[] = [
             id: "l1",
             title: "Qué es el dropshipping de verdad",
             duration: "12:40",
+            image: photo("1563013544-824ae1b704d3"),
             description:
               "Cómo funciona el modelo, dónde está el dinero y los errores que hacen que la mayoría abandone en el primer mes.",
             materials: [{ label: "Guía rápida del modelo", kind: "pdf" }],
@@ -66,6 +73,7 @@ export const COURSES: Course[] = [
             id: "l2",
             title: "Cuánto necesitas para empezar",
             duration: "09:15",
+            image: photo("1553729459-efe14ef6055d"),
             description: "Presupuesto real: tienda, anuncios, muestras y colchón para probar productos.",
             materials: [{ label: "Calculadora de presupuesto", kind: "plantilla" }],
           },
@@ -79,12 +87,14 @@ export const COURSES: Course[] = [
             id: "l3",
             title: "Las 5 señales de un producto ganador",
             duration: "18:02",
+            image: photo("1607083206869-4c7672e72a8a"),
             description: "El filtro para decidir si un producto vale la pena antes de gastar un dólar.",
           },
           {
             id: "l4",
             title: "Espiar a la competencia sin pagar herramientas",
             duration: "14:30",
+            image: photo("1559526324-4b87b5e36e44"),
             description: "Biblioteca de anuncios, TikTok y Amazon para validar demanda en minutos.",
             materials: [{ label: "Lista de herramientas gratis", kind: "link" }],
           },
@@ -92,6 +102,7 @@ export const COURSES: Course[] = [
             id: "l5",
             title: "Proveedores confiables y tiempos de envío",
             duration: "16:48",
+            image: photo("1586528116311-ad8dd3c8310d"),
             description: "Cómo negociar, pedir muestras y evitar proveedores que arruinan tus reseñas.",
           },
         ],
@@ -104,6 +115,7 @@ export const COURSES: Course[] = [
             id: "l6",
             title: "Montar la tienda paso a paso",
             duration: "22:10",
+            image: photo("1520607162513-77705c0f0d4a"),
             description: "De cero a tienda publicada: dominio, tema, páginas clave y pagos.",
             materials: [{ label: "Checklist de lanzamiento", kind: "pdf" }],
           },
@@ -111,6 +123,7 @@ export const COURSES: Course[] = [
             id: "l7",
             title: "Página de producto que convierte",
             duration: "19:05",
+            image: photo("1556742049-0cfed4f6a45d"),
             description: "Fotos, textos y garantías que hacen que el cliente compre sin pensarlo dos veces.",
           },
         ],
@@ -127,6 +140,7 @@ export const COURSES: Course[] = [
     price: 147,
     hours: "4 h 45 min",
     theme: "ivory",
+    image: photo("1551288049-bebda4e38f71"),
     modules: [
       {
         id: "m1",
@@ -136,12 +150,14 @@ export const COURSES: Course[] = [
             id: "l1",
             title: "Estructura de campañas que funciona",
             duration: "15:20",
+            image: photo("1526628953301-3e589a6a8b74"),
             description: "Campañas, conjuntos y anuncios: cómo organizarlos para leer resultados claros.",
           },
           {
             id: "l2",
             title: "Creativos que detienen el scroll",
             duration: "17:45",
+            image: photo("1522202176988-66273c2fd55f"),
             description: "Ganchos de 3 segundos, formatos UGC y cómo grabar con tu celular.",
             materials: [{ label: "50 ganchos probados", kind: "pdf" }],
           },
@@ -155,12 +171,14 @@ export const COURSES: Course[] = [
             id: "l3",
             title: "Leer métricas sin enredarte",
             duration: "13:10",
+            image: photo("1460925895917-afdab827c52f"),
             description: "CPA, ROAS y CTR explicados con números reales.",
           },
           {
             id: "l4",
             title: "Escalar presupuesto sin romper la campaña",
             duration: "20:35",
+            image: photo("1551288049-bebda4e38f71"),
             description: "Escalado vertical y horizontal, y cuándo apagar un anuncio.",
           },
         ],
@@ -177,6 +195,7 @@ export const COURSES: Course[] = [
     price: 497,
     hours: "8 semanas",
     theme: "bronze",
+    image: photo("1600880292203-757bb62b4baf"),
     modules: [
       {
         id: "m1",
@@ -186,12 +205,14 @@ export const COURSES: Course[] = [
             id: "l1",
             title: "Auditoría de tu tienda",
             duration: "45:00",
+            image: photo("1556740758-90de374c12ad"),
             description: "Revisión en vivo de tu tienda, productos y anuncios actuales.",
           },
           {
             id: "l2",
             title: "Plan de acción personalizado",
             duration: "38:20",
+            image: photo("1542744173-8e7e53415bb0"),
             description: "Objetivos, presupuesto y calendario para las próximas semanas.",
           },
         ],
@@ -204,12 +225,14 @@ export const COURSES: Course[] = [
             id: "l3",
             title: "Automatizar operaciones",
             duration: "41:15",
+            image: photo("1556761175-5973dc0f32e7"),
             description: "Atención al cliente, pedidos y proveedores en piloto automático.",
           },
           {
             id: "l4",
             title: "Marca propia y siguiente nivel",
             duration: "50:00",
+            image: photo("1553729459-efe14ef6055d"),
             description: "Cómo pasar de dropshipping a marca propia con margen real.",
           },
         ],

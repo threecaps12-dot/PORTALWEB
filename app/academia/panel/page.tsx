@@ -253,6 +253,7 @@ function ProgramsTab({
         price: Number(f.get("price") || 0),
         hours: "Nuevo",
         theme: (["gold", "ivory", "bronze"] as const)[prev.length % 3],
+        image: prev[prev.length % 3]?.image ?? "",
         modules: [{ id: "m1", title: "Módulo 1", lessons: [] }],
       },
     ]);
@@ -276,7 +277,7 @@ function ProgramsTab({
               modules: c.modules.map((m) =>
                 m.id !== moduleId
                   ? m
-                  : { ...m, lessons: [...m.lessons, { id: "l" + Date.now(), title, duration: "Nueva", description: "" }] }
+                  : { ...m, lessons: [...m.lessons, { id: "l" + Date.now(), title, duration: "Nueva", description: "", image: c.image }] }
               ),
             }
       )

@@ -97,13 +97,16 @@ export default function CoursePlayer({ course }: { course: Course }) {
         <section className="px-5 md:px-8 py-8 min-w-0">
           <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 shadow-[0_40px_120px_-40px_rgba(0,0,0,1)]">
             {playing ? (
-              <video key={lesson.id} src={DEMO_VIDEO_URL} controls autoPlay className="w-full h-full object-contain bg-black" />
+              <video key={lesson.id} src={DEMO_VIDEO_URL} poster={lesson.image} controls autoPlay className="w-full h-full object-contain bg-black" />
             ) : (
               <button
                 type="button"
                 onClick={() => setPlaying(true)}
                 className="group absolute inset-0 acad-grain bg-[radial-gradient(80%_70%_at_70%_20%,rgba(201,169,110,0.28),transparent_60%),linear-gradient(160deg,#17150f,#050506)]"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={lesson.image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-55 group-hover:scale-[1.02] transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6">
                   <span className="w-20 h-20 rounded-full bg-white/95 grid place-items-center shadow-[0_0_0_10px_rgba(255,255,255,0.06)] group-hover:scale-105 transition-transform">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="#000" className="ml-1">
