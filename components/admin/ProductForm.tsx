@@ -78,10 +78,11 @@ export default function ProductForm({
       for (const original of files) {
         try {
           const file = await prepareImageForUpload(original);
-          const path = `${crypto.randomUUID()}.jpg`;
+          const ext = file.type === "image/webp" ? "webp" : "jpg";
+          const path = `${crypto.randomUUID()}.${ext}`;
           const { error: uploadError } = await supabase.storage
             .from("product-images")
-            .upload(path, file, { contentType: "image/jpeg", cacheControl: "31536000" });
+            .upload(path, file, { contentType: file.type, cacheControl: "31536000" });
           if (uploadError) throw new Error(uploadError.message);
           const { data } = supabase.storage.from("product-images").getPublicUrl(path);
           uploadedUrls.push(data.publicUrl);

@@ -1,10 +1,11 @@
-// Prepara fotos de celular/PC antes de subirlas al panel admin: las reduce y las
-// convierte a JPG para que carguen rapido, quepan en el limite de Storage y se
-// vean en cualquier navegador (las fotos originales del iPhone suelen ser HEIC
-// de varios MB, que Chrome no puede mostrar).
+// Prepara fotos de celular/PC antes de subirlas al panel admin: las reduce a max 900 px
+// y las convierte a WebP (~80-150 KB) para no agotar la cuota gratis de trafico de
+// Supabase (5 GB/mes). Si el navegador no sabe generar WebP (Safari viejo), cae a JPG.
+// Las fotos originales del iPhone suelen ser HEIC de varios MB, que Chrome no muestra.
 
-const MAX_SIDE = 1800;
-const JPEG_QUALITY = 0.86;
+const MAX_SIDE = 900;
+const WEBP_QUALITY = 0.8;
+const JPEG_QUALITY = 0.8;
 
 export class ImageUploadError extends Error {}
 
@@ -32,7 +33,7 @@ async function decode(file: File): Promise<{ source: CanvasImageSource; width: n
   }
 }
 
-/** Devuelve un JPG reducido a maximo 1800 px por lado. */
+/** Devuelve un WebP (o JPG de respaldo) reducido a maximo 900 px por lado. */
 export async function prepareImageForUpload(file: File): Promise<File> {
   if (!file.type.startsWith("image/") && !/\.(jpe?g|png|webp|gif|heic|heif)$/i.test(file.name)) {
     throw new ImageUploadError("El archivo no es una imagen.");
@@ -54,11 +55,17 @@ export async function prepareImageForUpload(file: File): Promise<File> {
     ctx.fillRect(0, 0, w, h);
     ctx.drawImage(source, 0, 0, w, h);
 
-    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", JPEG_QUALITY));
-    if (!blob) throw new ImageUploadError("No se pudo convertir la foto a JPG.");
+    const toBlob = (type: string, q: number) =>
+      new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, q));
 
+    let blob = await toBlob("image/webp", WEBP_QUALITY);
+    // Algunos navegadores ignoran webp y devuelven PNG: en ese caso usamos JPG.
+    if (!blob || blob.type !== "image/webp") blob = await toBlob("image/jpeg", JPEG_QUALITY);
+    if (!blob) throw new ImageUploadError("No se pudo convertir la foto.");
+
+    const isWebp = blob.type === "image/webp";
     const base = file.name.replace(/\.[^.]+$/, "") || "foto";
-    return new File([blob], `${base}.jpg`, { type: "image/jpeg" });
+    return new File([blob], `${base}.${isWebp ? "webp" : "jpg"}`, { type: isWebp ? "image/webp" : "image/jpeg" });
   } finally {
     close();
   }
