@@ -4,12 +4,12 @@ const nextConfig = {
   images: {
     // El optimizador de imagenes de Vercel devolvia 402 (limite del plan) y las fotos nuevas
     // salian rotas. Las fotos se sirven directo desde Supabase Storage; el panel admin ya
-    // las reduce a JPG de max 1800 px antes de subirlas.
+    // las reduce a WebP de max 900 px antes de subirlas.
     unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "smqdyqqtiufzmdltgsrx.supabase.co",
+        hostname: "qrawlwyqrturuhqcgfhk.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
     ],

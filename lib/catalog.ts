@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { ProductCardData } from "@/components/ProductCard";
+import { FALLBACK_COLLECTIONS, FALLBACK_PRODUCTS } from "@/lib/fallbackCatalog";
 
 type ProductRow = {
   id: string;
@@ -42,40 +43,81 @@ function toCardData(row: ProductRow): ProductCardData {
 }
 
 export async function getFeaturedProducts(): Promise<ProductCardData[]> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("products")
-    .select(PRODUCT_SELECT)
-    .eq("status", "active")
-    .eq("is_featured", true)
-    .order("created_at", { ascending: false });
-  return ((data as unknown as ProductRow[]) ?? []).map(toCardData);
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select(PRODUCT_SELECT)
+      .eq("status", "active")
+      .eq("is_featured", true)
+      .order("created_at", { ascending: false });
+    if (!error && data && data.length > 0) return (data as unknown as ProductRow[]).map(toCardData);
+  } catch {
+    // Supabase caido: usamos el respaldo local
+  }
+  return FALLBACK_PRODUCTS.filter((p) => p.isFeatured);
 }
 
 export async function getAllActiveProducts(): Promise<ProductCardData[]> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("products")
-    .select(PRODUCT_SELECT)
-    .eq("status", "active")
-    .order("created_at", { ascending: false });
-  return ((data as unknown as ProductRow[]) ?? []).map(toCardData);
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select(PRODUCT_SELECT)
+      .eq("status", "active")
+      .order("created_at", { ascending: false });
+    if (!error && data && data.length > 0) return (data as unknown as ProductRow[]).map(toCardData);
+  } catch {
+    // Supabase caido: usamos el respaldo local
+  }
+  return FALLBACK_PRODUCTS;
 }
 
 export async function getCollections() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("collections").select("id, name, slug").order("name");
-  return data ?? [];
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("collections").select("id, name, slug").order("name");
+    if (!error && data && data.length > 0) return data;
+  } catch {
+    // Supabase caido: usamos el respaldo local
+  }
+  return FALLBACK_COLLECTIONS;
+}
+
+function fallbackProductBySlug(slug: string) {
+  const p = FALLBACK_PRODUCTS.find((x) => x.slug === slug);
+  if (!p) return null;
+  return {
+    id: p.id,
+    slug: p.slug,
+    name: p.name,
+    description: p.description,
+    price: p.price,
+    compareAtPrice: p.compareAtPrice,
+    categoryLabel: p.categoryLabel,
+    imageUrl: p.imageUrl,
+    images: [p.imageUrl],
+    sizes: p.sizes,
+    hasRealPhoto: p.hasRealPhoto ?? true,
+    stockLeft: p.stockLeft ?? 0,
+  };
 }
 
 export async function getProductBySlug(slug: string) {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("products")
-    .select(PRODUCT_SELECT)
-    .eq("slug", slug)
-    .eq("status", "active")
-    .maybeSingle();
+  let data: unknown = null;
+  try {
+    const supabase = await createClient();
+    const res = await supabase
+      .from("products")
+      .select(PRODUCT_SELECT)
+      .eq("slug", slug)
+      .eq("status", "active")
+      .maybeSingle();
+    if (res.error) return fallbackProductBySlug(slug);
+    data = res.data;
+  } catch {
+    return fallbackProductBySlug(slug);
+  }
 
   if (!data) return null;
 
