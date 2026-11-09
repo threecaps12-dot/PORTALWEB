@@ -55,6 +55,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  // Primera entrada con la clave temporal: obligar a poner una propia en Mi Perfil.
+  const mustChange = user.user_metadata?.must_change_password === true;
+  if (mustChange && pathname !== "/admin/perfil") {
+    const perfilUrl = new URL("/admin/perfil", request.url);
+    perfilUrl.searchParams.set("primera", "1");
+    return NextResponse.redirect(perfilUrl);
+  }
+
   if (isLoginPage) {
     return NextResponse.redirect(new URL("/admin", request.url));
   }

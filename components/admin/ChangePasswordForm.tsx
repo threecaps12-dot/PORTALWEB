@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ firstTime = false }: { firstTime?: boolean }) {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,11 +26,21 @@ export default function ChangePasswordForm() {
 
     setLoading(true);
     const supabase = createClient();
-    const { error } = await supabase.auth.updateUser({ password });
+    const { error } = await supabase.auth.updateUser({ password, data: { must_change_password: false } });
     setLoading(false);
 
     if (error) {
-      setMessage({ type: "error", text: "No se pudo actualizar. Intenta de nuevo." });
+      const same = /different from the old|same/i.test(error.message);
+      setMessage({
+        type: "error",
+        text: same ? "La nueva contraseña debe ser distinta a la temporal." : "No se pudo actualizar. Intenta de nuevo.",
+      });
+      return;
+    }
+
+    if (firstTime) {
+      router.replace("/admin");
+      router.refresh();
       return;
     }
 

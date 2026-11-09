@@ -2,11 +2,12 @@ import { createClient } from "@/lib/supabase/server";
 import ChangePasswordForm from "@/components/admin/ChangePasswordForm";
 import CollectionsManager from "@/components/admin/CollectionsManager";
 
-export default async function PerfilPage() {
+export default async function PerfilPage({ searchParams }: { searchParams?: { primera?: string } }) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const firstTime = user?.user_metadata?.must_change_password === true || searchParams?.primera === "1";
 
   const [{ data: adminRow }, { data: collections }] = await Promise.all([
     supabase.from("admin_users").select("role").eq("id", user?.id ?? "").maybeSingle(),
@@ -28,9 +29,22 @@ export default async function PerfilPage() {
         </span>
       </div>
 
-      <CollectionsManager collections={collections ?? []} />
-
-      <ChangePasswordForm />
+      {firstTime ? (
+        <>
+          <div className="bg-gold/15 border border-gold/40 p-4 mb-6 max-w-md">
+            <p className="text-obsidian text-sm font-medium mb-1">Bienvenido 👋 Antes de seguir, crea tu propia contraseña.</p>
+            <p className="text-obsidian/60 text-xs">
+              La clave que te enviamos es temporal. Elige una fácil de recordar para ti (mínimo 6 caracteres).
+            </p>
+          </div>
+          <ChangePasswordForm firstTime />
+        </>
+      ) : (
+        <>
+          <CollectionsManager collections={collections ?? []} />
+          <ChangePasswordForm />
+        </>
+      )}
     </div>
   );
 }
