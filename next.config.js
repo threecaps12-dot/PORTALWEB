@@ -1,3 +1,9 @@
+// Nov 2026: la tienda usa el Supabase original (smqdyqqtiufzmdltgsrx, plan Pro pagado hasta el 11 dic)
+// con todo su catálogo. Esto reemplaza las variables de Vercel en el build. Antes del 11 dic se migra
+// todo al proyecto gratis (qrawlwyqrturuhqcgfhk) y se borran estas dos líneas.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://smqdyqqtiufzmdltgsrx.supabase.co";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "sb_publishable_R6iskKMfOYdwcEHVRi9jQA_jQIovtLD";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,6 +16,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "qrawlwyqrturuhqcgfhk.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },      {
+        protocol: "https",
+        hostname: "smqdyqqtiufzmdltgsrx.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
     ],
